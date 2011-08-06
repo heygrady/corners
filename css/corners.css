@@ -1,4 +1,25 @@
-.box .ui-corners-corner-tl { background-image: url('../i/corner-tl.png?1312579580'); top: 0; left: 0; height: 12px; width: 12px; }
+.normal .ui-corners-corner { width: 12px; height: 12px; }
+.normal .ui-corners-corner-tl { background-image: url('../i/corner-tl.png?1312605049'); }
+.normal .ui-corners-corner-tr { background-image: url('../i/corner-tr.png?1312605049'); }
+.normal .ui-corners-corner-br { background-image: url('../i/corner-br.png?1312605049'); }
+.normal .ui-corners-corner-bl { background-image: url('../i/corner-bl.png?1312605049'); }
+.normal .ui-corners-side-top, .normal .ui-corners-side-bottom { left: 12px; right: 12px; height: 12px; }
+.normal .ui-corners-side-left, .normal .ui-corners-side-right { top: 12px; bottom: 12px; width: 12px; background-image: url('../i/corner-l.png?1312605049'); }
+.normal .ui-corners-side-top { background-image: url('../i/corner-t.png?1312605049'); }
+.normal .ui-corners-side-bottom { background-image: url('../i/corner-b.png?1312605049'); }
+
+.sprite .ui-corners-corner, .sprite .ui-corners-side { background-image: url('../i/corner.png?1312605049'); }
+.sprite .ui-corners-corner { width: 12px; height: 12px; }
+.sprite .ui-corners-corner-tl { background-position: -13px -13px; }
+.sprite .ui-corners-corner-tr { background-position: -1px -13px; }
+.sprite .ui-corners-corner-br { background-position: -1px -1px; }
+.sprite .ui-corners-corner-bl { background-position: -13px -1px; }
+.sprite .ui-corners-side-top, .sprite .ui-corners-side-bottom { left: 12px; right: 12px; height: 12px; }
+.sprite .ui-corners-side-left, .sprite .ui-corners-side-right { top: 12px; bottom: 12px; width: 12px; }
+.sprite .ui-corners-side-top { background-position: 0 -25px; }
+.sprite .ui-corners-side-bottom { background-position: 0 11px; }
+.sprite .ui-corners-side-left { background-position: -25px 0; }
+.sprite .ui-corners-side-right { background-position: 11px 0; }
 
 .ui-corners { position: relative; }
 
@@ -8,22 +29,22 @@
 
 .ui-corners-side-top, .ui-corners-side-bottom { left: 5px; right: 5px; height: 1px; background-repeat: repeat-x; }
 
-.ui-corners-side-top { top: 0; }
+.ui-corners-side-top { top: 0; background-position: left top; }
 
-.ui-corners-side-bottom { bottom: 0; }
+.ui-corners-side-bottom { bottom: 0; background-position: left bottom; }
 
 .ui-corners-side-left, .ui-corners-side-right { top: 5px; bottom: 5px; width: 1px; background-repeat: repeat-y; }
 
-.ui-corners-side-left { left: 0; }
+.ui-corners-side-left { left: 0; background-position: left top; }
 
-.ui-corners-side-right { right: 0; }
+.ui-corners-side-right { right: 0; background-position: right top; }
 
 .ui-corners-corner { height: 5px; width: 5px; background-repeat: no-repeat; }
 
-.ui-corners-corner-tl { top: 0; left: 0; }
+.ui-corners-corner-tl { top: 0; left: 0; background-position: left top; }
 
-.ui-corners-corner-tr { top: 0; right: 0; }
+.ui-corners-corner-tr { top: 0; right: 0; background-position: right top; }
 
-.ui-corners-corner-br { bottom: 0; right: 0; }
+.ui-corners-corner-br { bottom: 0; right: 0; background-position: right bottom; }
 
-.ui-corners-corner-bl { bottom: 0; left: 0; }
+.ui-corners-corner-bl { bottom: 0; left: 0; background-position: left bottom; }

@@ -23,138 +23,342 @@ $ui-corners-side-left-width: $ui-corners-side-width !default;
 $ui-corners-side-right-width: $ui-corners-side-width !default;
 
 //-----------------------------------------------
-// Mixin
+// Corner Images
+// @param list $tl [backgorund-image] [width] [height] [background-position-x] [background-position-y] [left] [top] top-left corner
+// @param list $t  [backgorund-image] [height] [background-position-x] [background-position-y] [left] [right] [top] top side
+// @param list $tr [backgorund-image] [width] [height] [background-position-x] [background-position-y] [right] [top] top-right corner
+// @param list $r  [backgorund-image] [width] [background-position-x] [background-position-y] [right] [top] [bottom] right side
+// @param list $br [backgorund-image] [width] [height] [background-position-x] [background-position-y] [right] [bottom] bottom-right corner
+// @param list $b  [backgorund-image] [height] [background-position-x] [background-position-y] [left] [right] [bottom] bottom side
+// @param list $bl [backgorund-image] [width] [height] [background-position-x] [background-position-y] [left] [bottom] bottom-left corner
+// @param list $l  [backgorund-image] [width] [background-position-x] [background-position-y] [left] [top] [bottom] left side
 //-----------------------------------------------
 @mixin corner-images ($tl: auto, $t: auto, $tr: auto, $r: auto, $br: auto, $b: auto, $bl: auto, $l: auto) {
-	// image-url(...) 10px 10px 0 0
-	$tl-h:  0;
-  $tl-w:  0;
-	
-	// Top Left
-	@if $tl != auto {
-    $image: nth($tl, 1);
-    $width: if($image != none, auto, default);
-    $height: if($image != none, auto, default);
-    $left: auto; $top: auto;
-    
-    // pull out other values
-    @if length($tl) > 1 { $width: nth($tl, 2) }
-    @if length($tl) > 2 { $height: nth($tl, 3) }
-    @if length($tl) > 3 { $left: nth($tl, 4) }
-    @if length($tl) > 4 { $top: nth($tl, 5) }
-    
-    // handle auto/default
-    @if $width == auto { $width: image-width($image); }
-    @if $width == default { $width: $ui-corners-corner-tl-width; }
-    @if $height == auto { $height: image-height($image); }
-    @if $height == default { $height: $ui-corners-corner-tl-height; }
-    @if $left == auto { $left: 0; } @elseif $left == default { $left: 0; }
-    @if $top == auto { $top: 0; } @elseif $top == default { $top: 0; }
-    
-    .ui-corners-corner-tl {
-        @if $image != none { background-image: image-url($image); }
-        top: $top;
-        left: $left;
-        height: $height;
-        width: $width;
+  // corner images and dimensions
+  $tl-image:  nth($tl, 1);
+  $tl-width:  corner-var(corner-nth($tl, 2, auto) corner-image-width($tl-image) $ui-corners-corner-tl-width);
+  $tl-height: corner-var(corner-nth($tl, 3, auto) corner-image-height($tl-image) $ui-corners-corner-tl-height);
+  $tr-image:  nth($tr, 1);
+  $tr-width:  corner-var(corner-nth($tr, 2, auto) corner-image-width($tr-image) $ui-corners-corner-tr-width);
+  $tr-height: corner-var(corner-nth($tr, 3, auto) corner-image-height($tr-image) $ui-corners-corner-tr-height);
+  $br-image:  nth($br, 1);
+  $br-width:  corner-var(corner-nth($br, 2, auto) corner-image-width($br-image) $ui-corners-corner-br-width);
+  $br-height: corner-var(corner-nth($br, 3, auto) corner-image-height($br-image) $ui-corners-corner-br-height);
+  $bl-image:  nth($bl, 1);
+  $bl-width:  corner-var(corner-nth($bl, 2, auto) corner-image-width($bl-image) $ui-corners-corner-bl-width);
+  $bl-height: corner-var(corner-nth($bl, 3, auto) corner-image-height($bl-image) $ui-corners-corner-bl-height);
+  $t-image: nth($t, 1); $r-image: nth($r, 1); $b-image: nth($b, 1); $l-image: nth($l, 1);
+  
+  // all backgrounds are the same
+  @if $tl-image != none and $tl-image == $t-image and $tl-image == $tr-image and $tl-image == $r-image
+      and $tl-image == $br-image and $tl-image == $b-image and $tl-image == $b-image and $tl-image == $l-image {
+    .ui-corners-corner, .ui-corners-side { background-image: image-url($tl-image); }
+    $tl-image: none; $tr-image: none; $br-image: none; $bl-image: none;
+    $t-image: none; $r-image: none; $b-image: none; $l-image: none;
+  }
+  
+  // normalize height and width
+  $width: false;
+  $height: false;
+  
+  // check all width are the same
+  @if $tl-width == $tr-width and $tl-width == $br-width and $tl-width == $bl-width { $width: $tl-width; }
+  
+  // check all heights are the same
+  @if $tl-height == $tr-height and $tl-height == $br-height and $tl-height == $bl-height { $height: $tl-height; }
+  
+  // set the width and height with a generic class
+  @if ($width and $width != $ui-corners-corner-width) or ($height and $height != $ui-corners-corner-height)
+    or ($tl-image != none and $tl-image == $tr-image and $tl-image == $br-image and $tl-image == $bl-image) {
+    // when it matches default, fall back to generic corner class
+    .ui-corners-corner {
+      @if $width and $width != $ui-corners-corner-width { width: $width; }
+      @if $height and $height != $ui-corners-corner-height { height: $height; }
+      @if $tl-image != none and $tl-image == $tr-image and $tl-image == $br-image and $tl-image == $bl-image {
+        background-image: image-url($tl-image);
+        $tl-image: none; $tr-image: none; $br-image: none; $bl-image: none;
+      }
     }
-	}
+  }
+  
+  // Top Left
+  @if $tl != auto {
+    .ui-corners-corner-tl {
+      @include corner-props(
+        $image: $tl-image,
+        $w: if($width, false, $tl-width),
+        $h: if($height, false, $tl-height),
+        $x: corner-nth($tl, 4, auto) false 0,
+        $y: corner-nth($tl, 5, auto) false 0,
+        $l: corner-nth($tl, 6, auto) false 0,
+        $t: corner-nth($tl, 7, auto) false 0
+      );
+    }
+  }
   
   // Top Right
-  @if $tr != auto {
-    $image: nth($tr, 1);
-    $width: if($image != none, auto, default);
-    $height: if($image != none, auto, default);
-    $right: auto; $top: auto;
-    
-    // pull out other values
-    @if length($tr) > 1 { $width: nth($tr, 2) }
-    @if length($tr) > 2 { $height: nth($tr, 3) }
-    @if length($tr) > 3 { $right: nth($tr, 4) }
-    @if length($tr) > 4 { $top: nth($tr, 5) }
-    
-    // handle auto/default
-    @if $width == auto { $width: image-width($image); }
-    @if $width == default { $width: $ui-corners-corner-tr-width; }
-    @if $height == auto { $height: image-height($image); }
-    @if $height == default { $height: $ui-corners-corner-tr-height; }
-    @if $right == auto { $right: 0; } @elseif $right == default { $right: 0; }
-    @if $top == auto { $top: 0; } @elseif $top == default { $top: 0; }
-    
+  @if $tr != auto {    
     .ui-corners-corner-tr {
-        @if $image != none { background-image: image-url($image); }
-        top: $top;
-        right: $right;
-        height: $height;
-        width: $width;
+      @include corner-props(
+        $image: $tr-image,
+        $w: if($width, false, $tr-width),
+        $h: if($height, false, $tr-height),
+        $x: corner-nth($tr, 4, auto) false 0,
+        $y: corner-nth($tr, 5, auto) false 0,
+        $r: corner-nth($tr, 6, auto) false 0,
+        $t: corner-nth($tr, 7, auto) false 0
+      );
     }
   }
   
   // Bottom Right
   @if $br != auto {
-    $image: nth($br, 1);
-    $width: if($image != none, auto, default);
-    $height: if($image != none, auto, default);
-    $right: auto; $bottom: auto;
-    
-    // pull out other values
-    @if length($br) > 1 { $width: nth($br, 2) }
-    @if length($br) > 2 { $height: nth($br, 3) }
-    @if length($br) > 3 { $right: nth($br, 4) }
-    @if length($br) > 4 { $bottom: nth($br, 5) }
-    
-    // handle auto/default
-    @if $width == auto { $width: image-width($image); }
-    @if $width == default { $width: $ui-corners-corner-br-width; }
-    @if $height == auto { $height: image-height($image); }
-    @if $height == default { $height: $ui-corners-corner-br-height; }
-    @if $right == auto { $right: 0; } @elseif $right == default { $right: 0; }
-    @if $bottom == auto { $bottom: 0; } @elseif $bottom == default { $bottom: 0; }
-    
     .ui-corners-corner-br {
-        @if $image != none { background-image: image-url($image); }
-        bottom: $bottom;
-        right: $right;
-        height: $height;
-        width: $width;
+      @include corner-props(
+        $image: $br-image,
+        $w: if($width, false, $br-width),
+        $h: if($height, false, $br-height),
+        $x: corner-nth($br, 4, auto) false 0,
+        $y: corner-nth($br, 5, auto) false 0,
+        $r: corner-nth($br, 6, auto) false 0,
+        $b: corner-nth($br, 7, auto) false 0
+      );
     }
   }
   
   // Bottom Left
   @if $bl != auto {
-    $image: nth($bl, 1);
-    $width: if($image != none, auto, default);
-    $height: if($image != none, auto, default);
-    $left: auto; $bottom: auto;
-    
-    // pull out other values
-    @if length($bl) > 1 { $width: nth($bl, 2) }
-    @if length($bl) > 2 { $height: nth($bl, 3) }
-    @if length($bl) > 3 { $left: nth($bl, 4) }
-    @if length($bl) > 4 { $bottom: nth($bl, 5) }
-    
-    // handle auto/default
-    @if $width == auto { $width: image-width($image); }
-    @if $width == default { $width: $ui-corners-corner-br-width; }
-    @if $height == auto { $height: image-height($image); }
-    @if $height == default { $height: $ui-corners-corner-br-height; }
-    @if $left == auto { $left: 0; } @elseif $left == default { $left: 0; }
-    @if $bottom == auto { $bottom: 0; } @elseif $bottom == default { $bottom: 0; }
-    
-    .ui-corners-corner-br {
-        @if $image != none { background-image: image-url($image); }
-        bottom: $bottom;
-        left: $left;
-        height: $height;
-        width: $width;
+    .ui-corners-corner-bl {
+      @include corner-props(
+        $image: $bl-image,
+        $w: if($width, false, $bl-width),
+        $h: if($height, false, $bl-height),
+        $x: corner-nth($bl, 4, auto) false 0,
+        $y: corner-nth($bl, 5, auto) false 0,
+        $l: corner-nth($bl, 6, auto) false 0,
+        $b: corner-nth($bl, 7, auto) false 0
+      );
+    }
+  }
+  
+  // Side left, right, top and bottom
+  $t-height: corner-var(corner-nth($t, 2, auto) $tl-height $ui-corners-side-left-width);
+  $t-left:   corner-var(corner-nth($t, 5, auto) $tl-width $ui-corners-corner-width);
+  $t-right:  corner-var(corner-nth($t, 6, auto) $tr-width $ui-corners-corner-width);
+  $b-height: corner-var(corner-nth($b, 2, auto) $bl-height $ui-corners-side-left-width);
+  $b-left:   corner-var(corner-nth($b, 5, auto) $bl-width $ui-corners-corner-width);
+  $b-right:  corner-var(corner-nth($b, 6, auto) $br-width $ui-corners-corner-width);
+  $l-width:  corner-var(corner-nth($l, 2, auto) $tl-width $ui-corners-side-left-width);
+  $l-top:    corner-var(corner-nth($l, 6, auto) $tl-height $ui-corners-corner-height);
+  $l-bottom: corner-var(corner-nth($l, 7, auto) $bl-height $ui-corners-corner-height);
+  $r-width:  corner-var(corner-nth($r, 2, auto) $tr-width $ui-corners-side-right-width);
+  $r-top:    corner-var(corner-nth($r, 6, auto) $tr-height $ui-corners-corner-height);
+  $r-bottom: corner-var(corner-nth($r, 7, auto) $br-height $ui-corners-corner-height);
+  
+  // normalize left and right, top and bottom
+  $left: false;
+  $right: false;
+  $top: false;
+  $bottom: false;
+  $width: false;
+  $height: false;
+  
+  
+  // check all sides are the same
+  @if $t-left == $b-left { $left: $t-left; }
+  @if $t-right == $b-right { $right: $t-right; }
+  @if $t-height == $b-height { $height: $t-height; }
+  @if $l-top == $r-top { $top: $l-top; }
+  @if $l-bottom == $r-bottom { $bottom: $l-bottom; }
+  @if $l-width == $r-width { $width: $l-width; }
+  
+  @if $t-image != none and $t-image == $r-image and $t-image == $b-image and $t-image == $l-image {
+    .ui-corners-side { background-image: image-url($t-image); }
+    $t-image: none; $r-image: none; $b-image: none; $l-image: none;
+  }
+  
+  // set the top and bottom sides with a generic class
+  @if ($left and $left != $ui-corners-corner-width) or ($right and $right != $ui-corners-corner-width)
+      or ($height and $height != $ui-corners-side-width) or ($t-image != none and $t-image == $b-image) {
+    // when it matches default, fall back to generic corner class
+    .ui-corners-side-top, .ui-corners-side-bottom {
+      @if $left and $left != $ui-corners-corner-width { left: $left; }
+      @if $right and $right != $ui-corners-corner-width { right: $right; }
+      @if $height and $height != $ui-corners-side-width { height: $height; }
+      @if $t-image != none and $t-image == $b-image { background-image: image-url($t-image); $t-image: none; $b-image: none; }
+    }
+  }
+  // set the left and right sides with a generic class
+  @if ($top and $top != $ui-corners-corner-height) or ($bottom and $bottom != $ui-corners-corner-height)
+      or ($width and $width != $ui-corners-side-width) or ($l-image != none and $l-image == $r-image) {
+    // when it matches default, fall back to generic corner class
+    .ui-corners-side-left, .ui-corners-side-right {
+      @if $top and $top != $ui-corners-corner-height { top: $top; }
+      @if $bottom and $bottom != $ui-corners-corner-height { bottom: $bottom; }
+      @if $width and $width != $ui-corners-side-width { width: $width; }
+      @if $l-image != none and $l-image == $r-image { background-image: image-url($l-image); $l-image: none; $r-image: none; }
+    }
+  }
+  
+  // Top
+  @if $t != auto {
+    .ui-corners-side-top {
+      @include corner-props(
+        $image: $t-image,
+        $h: if($height, false, $t-height),
+        $x: corner-nth($t, 3, auto) false left,
+        $y: corner-nth($t, 4, auto) false top,
+        $l: if($left, false, $t-left),
+        $r: if($right, false, $t-right),
+        $t: corner-nth($t, 7, auto) false 0
+      );
+    }
+  }
+  
+  // Bottom
+  @if $b != auto {
+    .ui-corners-side-bottom {
+      @include corner-props(
+        $image: $b-image,
+        $h: if($height, false, $b-height),
+        $x: corner-nth($b, 3, auto) false left,
+        $y: corner-nth($b, 4, auto) false bottom,
+        $l: if($left, false, $b-left),
+        $r: if($right, false, $b-right),
+        $b: corner-nth($b, 7, auto) false 0
+      );
+    }
+  }
+  
+  // Left
+  @if $l != auto {
+    .ui-corners-side-left {
+      @include corner-props(
+        $image: $l-image,
+        $w: if($width, false, $l-width),
+        $x: corner-nth($l, 3, auto) false left,
+        $y: corner-nth($l, 4, auto) false top,
+        $l: corner-nth($l, 5, auto) false 0,
+        $t: if($top, false, $l-top),
+        $b: if($bottom, false, $l-bottom)
+      );
+    }
+  }
+  
+  // Right
+  @if $r != auto {
+    .ui-corners-side-right {
+      @include corner-props(
+        $image: $r-image,
+        $w: if($width, false, $r-width),
+        $x: corner-nth($r, 3, auto) false right,
+        $y: corner-nth($r, 4, auto) false top,
+        $r: corner-nth($r, 5, auto) false 0,
+        $t: if($top, false, $r-top),
+        $b: if($bottom, false, $r-bottom)
+      );
     }
   }
 }
 
-@mixin corner-sprite ($image) {
+//-----------------------------------------------
+// Corner Props
+// creates the porperties of corner or side
+// @param image $image (optional)
+// @param list $w (optional) [value] [auto] [default] element width.
+// @param list $h (optional) [value] [auto] [default] element height.
+// @param list $x (optional) [value] [auto] [default] background position x.
+// @param list $y (optional) [value] [auto] [default] background position y.
+// @param list $l (optional) [value] [auto] [default] position left.
+// @param list $r (optional) [value] [auto] [default] position right.
+// @param list $t (optional) [value] [auto] [default] position top.
+// @param list $b (optional) [value] [auto] [default] position bottom.
+//-----------------------------------------------
+@mixin corner-props ($image: none, $w: false, $h: false, $x: false, $y: false, $l: false, $r: false, $t: false, $b: false) {
+  // each variable takes 3 values: passed auto default
+  $left:   corner-var($l);
+  $right:  corner-var($r);
+  $top:    corner-var($t);
+  $bottom: corner-var($b);
+  $width:  corner-var($w);
+  $height: corner-var($h);
+  
+  @if $image  != none { background-image: image-url($image); }
+  @if $left   != false { left: $left; }
+  @if $right  != false { right: $right; }
+  @if $top    != false { top: $top; }
+  @if $bottom != false { bottom: $bottom; }
+  @if $width  != false { width: $width; }
+  @if $height != false { height: $height; }
+  
+  $position-x: corner-var($x);
+  $position-y: corner-var($y);
+  @if $position-x != false or $position-y != false { background-position: if($position-x != false, $position-x, nth($x, 3)) if($position-y != false, $position-y, nth($x, 3)); }
 }
-.box {
-  @include corner-images("corner-tl.png");
+
+//-----------------------------------------------
+// Corner Nth
+// returns the value of a list at an index or default value if the index is missing
+// @param list $list value list
+// @param int $n index within the lsit
+// @param mixed $default default value if index does not exist 
+//-----------------------------------------------
+@function corner-nth($list, $n, $default: false) {
+  $value: $default;
+  @if length($list) > $n - 1 { $value: nth($list, $n) }
+  @return $value;
+}
+
+//-----------------------------------------------
+// Corner Image Width
+// returns the width of an image or default
+// @param image $image
+//-----------------------------------------------
+@function corner-image-width($image) {
+  @if ($image == none) { @return default; }
+  @return image-width($image);
+}
+@function corner-image-height($image) {
+  @if ($image == none) { @return default; }
+  @return image-height($image);
+}
+
+//-----------------------------------------------
+// Corner Vars
+// returns the current value unless it is "auto" or "default" then those values are returned
+// @param list $list list if values [current value] [value of auto] [value of default]
+//-----------------------------------------------
+@function corner-var($list) {
+  $val: nth($list, 1);
+  @if $val == auto { $val: nth($list, 2); }
+  @if $val == default { $val: nth($list, 3); }
+  @return $val;
+}
+
+.normal {
+  @include corner-images(
+    "corner-tl.png",
+    "corner-t.png",
+    "corner-tr.png",
+    "corner-l.png",
+    "corner-br.png",
+    "corner-b.png",
+    "corner-bl.png",
+    "corner-l.png"
+  );
+}
+
+.sprite {
+  @include corner-images(
+    "corner.png" 12px 12px -13px -13px,
+    "corner.png" auto 0 -25px,
+    "corner.png" 12px 12px -1px -13px,
+    "corner.png" auto 11px 0,
+    "corner.png" 12px 12px -1px -1px,
+    "corner.png" auto 0 11px,
+    "corner.png" 12px 12px -13px -1px,
+    "corner.png" auto -25px 0
+  );
 }
 //-----------------------------------------------
 // Basic Styles
@@ -188,10 +392,12 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
 .ui-corners-side-top {
     top: 0;
     @if $ui-corners-side-width != $ui-corners-side-top-width { height: $ui-corners-side-top; }
+    background-position: left top;
 }
 .ui-corners-side-bottom {
     bottom: 0;
     @if $ui-corners-side-width != $ui-corners-side-bottom-width { height: $ui-corners-side-bottom; }
+    background-position: left bottom;
 }
 .ui-corners-side-left, .ui-corners-side-right {
     top: $ui-corners-corner-height;
@@ -202,10 +408,12 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
 .ui-corners-side-left {
     left: 0;
     @if $ui-corners-side-width != $ui-corners-side-left-width { width: $ui-corners-side-left; }
+    background-position: left top;
 }
 .ui-corners-side-right {
     right: 0;
     @if $ui-corners-side-width != $ui-corners-side-right-width { width: $ui-corners-side-right; }
+    background-position: right top;
 }
 
 //-----------------------------------------------
@@ -221,22 +429,26 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
     left: 0;
     @if $ui-corners-corner-height != $ui-corners-corner-tl-height { height: $ui-corners-corner-tl-height; }
     @if $ui-corners-corner-width != $ui-corners-corner-tl-width { width: $ui-corners-corner-tl-width; }
+    background-position: left top;
 }
 .ui-corners-corner-tr {
     top: 0;
     right: 0;
     @if $ui-corners-corner-height != $ui-corners-corner-tr-height { height: $ui-corners-corner-tr-height; }
     @if $ui-corners-corner-width != $ui-corners-corner-tr-width { width: $ui-corners-corner-tr-width; }
+    background-position: right top;
 }
 .ui-corners-corner-br {
     bottom: 0;
     right: 0;
     @if $ui-corners-corner-height != $ui-corners-corner-br-height { height: $ui-corners-corner-br-height; }
     @if $ui-corners-corner-width != $ui-corners-corner-br-width { width: $ui-corners-corner-br-width; }
+    background-position: right bottom;
 }
 .ui-corners-corner-bl {
     bottom: 0;
     left: 0;
     @if $ui-corners-corner-height != $ui-corners-corner-bl-height { height: $ui-corners-corner-bl-height; }
     @if $ui-corners-corner-width != $ui-corners-corner-bl-width { width: $ui-corners-corner-bl-width; }
+    background-position: left bottom;
 }

@@ -3,7 +3,7 @@
 ///////////////////////////////////////////////////////
 ;(function($, undefined) {
     // set up strings
-    var corners = ["top-left", "top-right", "bottom-right", "bottom-left"],
+    var corners = ["tl", "tr", "br", "bl"],
         sides = ["top", "right", "bottom", "left"],
         className = "ui-corners",
         cornerClassName = className + "-corner",
@@ -22,7 +22,7 @@
     // add corners/sides to an element
     // wrap the contents with a content div
     function addCorners(el) {
-        $(el).wrapInner('<div class="' + cornerClassName + '-content" />').append(spans).addClass(className);
+        $(el).wrapInner('<div class="' + className + '-content" />').append(spans).addClass(className);
     }
 
     // create a jQuery plugin for adding in the corners
