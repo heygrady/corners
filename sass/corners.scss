@@ -1,0 +1,242 @@
+//-----------------------------------------------
+// Variables
+//-----------------------------------------------
+// default widths
+$ui-corners-corner-height: 5px !default;
+$ui-corners-corner-width: 5px !default;
+$ui-corners-side-width: 1px !default;
+
+// defaults per corner
+$ui-corners-corner-tl-height: $ui-corners-corner-height !default;
+$ui-corners-corner-tl-width: $ui-corners-corner-width !default;
+$ui-corners-corner-tr-height: $ui-corners-corner-height !default;
+$ui-corners-corner-tr-width: $ui-corners-corner-width !default;
+$ui-corners-corner-br-height: $ui-corners-corner-height !default;
+$ui-corners-corner-br-width: $ui-corners-corner-width !default;
+$ui-corners-corner-bl-height: $ui-corners-corner-height !default;
+$ui-corners-corner-bl-width: $ui-corners-corner-width !default;
+
+// defaults per side
+$ui-corners-side-top-width: $ui-corners-side-width !default;
+$ui-corners-side-bottom-width: $ui-corners-side-width !default;
+$ui-corners-side-left-width: $ui-corners-side-width !default;
+$ui-corners-side-right-width: $ui-corners-side-width !default;
+
+//-----------------------------------------------
+// Mixin
+//-----------------------------------------------
+@mixin corner-images ($tl: auto, $t: auto, $tr: auto, $r: auto, $br: auto, $b: auto, $bl: auto, $l: auto) {
+	// image-url(...) 10px 10px 0 0
+	$tl-h:  0;
+  $tl-w:  0;
+	
+	// Top Left
+	@if $tl != auto {
+    $image: nth($tl, 1);
+    $width: if($image != none, auto, default);
+    $height: if($image != none, auto, default);
+    $left: auto; $top: auto;
+    
+    // pull out other values
+    @if length($tl) > 1 { $width: nth($tl, 2) }
+    @if length($tl) > 2 { $height: nth($tl, 3) }
+    @if length($tl) > 3 { $left: nth($tl, 4) }
+    @if length($tl) > 4 { $top: nth($tl, 5) }
+    
+    // handle auto/default
+    @if $width == auto { $width: image-width($image); }
+    @if $width == default { $width: $ui-corners-corner-tl-width; }
+    @if $height == auto { $height: image-height($image); }
+    @if $height == default { $height: $ui-corners-corner-tl-height; }
+    @if $left == auto { $left: 0; } @elseif $left == default { $left: 0; }
+    @if $top == auto { $top: 0; } @elseif $top == default { $top: 0; }
+    
+    .ui-corners-corner-tl {
+        @if $image != none { background-image: image-url($image); }
+        top: $top;
+        left: $left;
+        height: $height;
+        width: $width;
+    }
+	}
+  
+  // Top Right
+  @if $tr != auto {
+    $image: nth($tr, 1);
+    $width: if($image != none, auto, default);
+    $height: if($image != none, auto, default);
+    $right: auto; $top: auto;
+    
+    // pull out other values
+    @if length($tr) > 1 { $width: nth($tr, 2) }
+    @if length($tr) > 2 { $height: nth($tr, 3) }
+    @if length($tr) > 3 { $right: nth($tr, 4) }
+    @if length($tr) > 4 { $top: nth($tr, 5) }
+    
+    // handle auto/default
+    @if $width == auto { $width: image-width($image); }
+    @if $width == default { $width: $ui-corners-corner-tr-width; }
+    @if $height == auto { $height: image-height($image); }
+    @if $height == default { $height: $ui-corners-corner-tr-height; }
+    @if $right == auto { $right: 0; } @elseif $right == default { $right: 0; }
+    @if $top == auto { $top: 0; } @elseif $top == default { $top: 0; }
+    
+    .ui-corners-corner-tr {
+        @if $image != none { background-image: image-url($image); }
+        top: $top;
+        right: $right;
+        height: $height;
+        width: $width;
+    }
+  }
+  
+  // Bottom Right
+  @if $br != auto {
+    $image: nth($br, 1);
+    $width: if($image != none, auto, default);
+    $height: if($image != none, auto, default);
+    $right: auto; $bottom: auto;
+    
+    // pull out other values
+    @if length($br) > 1 { $width: nth($br, 2) }
+    @if length($br) > 2 { $height: nth($br, 3) }
+    @if length($br) > 3 { $right: nth($br, 4) }
+    @if length($br) > 4 { $bottom: nth($br, 5) }
+    
+    // handle auto/default
+    @if $width == auto { $width: image-width($image); }
+    @if $width == default { $width: $ui-corners-corner-br-width; }
+    @if $height == auto { $height: image-height($image); }
+    @if $height == default { $height: $ui-corners-corner-br-height; }
+    @if $right == auto { $right: 0; } @elseif $right == default { $right: 0; }
+    @if $bottom == auto { $bottom: 0; } @elseif $bottom == default { $bottom: 0; }
+    
+    .ui-corners-corner-br {
+        @if $image != none { background-image: image-url($image); }
+        bottom: $bottom;
+        right: $right;
+        height: $height;
+        width: $width;
+    }
+  }
+  
+  // Bottom Left
+  @if $bl != auto {
+    $image: nth($bl, 1);
+    $width: if($image != none, auto, default);
+    $height: if($image != none, auto, default);
+    $left: auto; $bottom: auto;
+    
+    // pull out other values
+    @if length($bl) > 1 { $width: nth($bl, 2) }
+    @if length($bl) > 2 { $height: nth($bl, 3) }
+    @if length($bl) > 3 { $left: nth($bl, 4) }
+    @if length($bl) > 4 { $bottom: nth($bl, 5) }
+    
+    // handle auto/default
+    @if $width == auto { $width: image-width($image); }
+    @if $width == default { $width: $ui-corners-corner-br-width; }
+    @if $height == auto { $height: image-height($image); }
+    @if $height == default { $height: $ui-corners-corner-br-height; }
+    @if $left == auto { $left: 0; } @elseif $left == default { $left: 0; }
+    @if $bottom == auto { $bottom: 0; } @elseif $bottom == default { $bottom: 0; }
+    
+    .ui-corners-corner-br {
+        @if $image != none { background-image: image-url($image); }
+        bottom: $bottom;
+        left: $left;
+        height: $height;
+        width: $width;
+    }
+  }
+}
+
+@mixin corner-sprite ($image) {
+}
+.box {
+  @include corner-images("corner-tl.png");
+}
+//-----------------------------------------------
+// Basic Styles
+//-----------------------------------------------
+// corner wrapper
+.ui-corners {
+    position: relative;
+}
+
+// the content of the wrapper
+.ui-corners-content {
+    position: relative;
+    z-index: 1;
+}
+
+// all corners and sides
+.ui-corners-corner, .ui-corners-side {
+    position: absolute;
+    z-index: 0;
+}
+
+//-----------------------------------------------
+// Sides
+//-----------------------------------------------
+.ui-corners-side-top, .ui-corners-side-bottom {
+    left: $ui-corners-corner-width;
+    right: $ui-corners-corner-width;
+    height: $ui-corners-side-width;
+    background-repeat: repeat-x;
+}
+.ui-corners-side-top {
+    top: 0;
+    @if $ui-corners-side-width != $ui-corners-side-top-width { height: $ui-corners-side-top; }
+}
+.ui-corners-side-bottom {
+    bottom: 0;
+    @if $ui-corners-side-width != $ui-corners-side-bottom-width { height: $ui-corners-side-bottom; }
+}
+.ui-corners-side-left, .ui-corners-side-right {
+    top: $ui-corners-corner-height;
+    bottom: $ui-corners-corner-height;
+    width: $ui-corners-side-width;
+    background-repeat: repeat-y;
+}
+.ui-corners-side-left {
+    left: 0;
+    @if $ui-corners-side-width != $ui-corners-side-left-width { width: $ui-corners-side-left; }
+}
+.ui-corners-side-right {
+    right: 0;
+    @if $ui-corners-side-width != $ui-corners-side-right-width { width: $ui-corners-side-right; }
+}
+
+//-----------------------------------------------
+// Corners
+//-----------------------------------------------
+.ui-corners-corner {
+    height: $ui-corners-corner-height;
+    width: $ui-corners-corner-width;
+    background-repeat: no-repeat;
+}
+.ui-corners-corner-tl {
+    top: 0;
+    left: 0;
+    @if $ui-corners-corner-height != $ui-corners-corner-tl-height { height: $ui-corners-corner-tl-height; }
+    @if $ui-corners-corner-width != $ui-corners-corner-tl-width { width: $ui-corners-corner-tl-width; }
+}
+.ui-corners-corner-tr {
+    top: 0;
+    right: 0;
+    @if $ui-corners-corner-height != $ui-corners-corner-tr-height { height: $ui-corners-corner-tr-height; }
+    @if $ui-corners-corner-width != $ui-corners-corner-tr-width { width: $ui-corners-corner-tr-width; }
+}
+.ui-corners-corner-br {
+    bottom: 0;
+    right: 0;
+    @if $ui-corners-corner-height != $ui-corners-corner-br-height { height: $ui-corners-corner-br-height; }
+    @if $ui-corners-corner-width != $ui-corners-corner-br-width { width: $ui-corners-corner-br-width; }
+}
+.ui-corners-corner-bl {
+    bottom: 0;
+    left: 0;
+    @if $ui-corners-corner-height != $ui-corners-corner-bl-height { height: $ui-corners-corner-bl-height; }
+    @if $ui-corners-corner-width != $ui-corners-corner-bl-width { width: $ui-corners-corner-bl-width; }
+}

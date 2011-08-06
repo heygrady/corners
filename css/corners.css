@@ -1,0 +1,29 @@
+.box .ui-corners-corner-tl { background-image: url('../i/corner-tl.png?1312579580'); top: 0; left: 0; height: 12px; width: 12px; }
+
+.ui-corners { position: relative; }
+
+.ui-corners-content { position: relative; z-index: 1; }
+
+.ui-corners-corner, .ui-corners-side { position: absolute; z-index: 0; }
+
+.ui-corners-side-top, .ui-corners-side-bottom { left: 5px; right: 5px; height: 1px; background-repeat: repeat-x; }
+
+.ui-corners-side-top { top: 0; }
+
+.ui-corners-side-bottom { bottom: 0; }
+
+.ui-corners-side-left, .ui-corners-side-right { top: 5px; bottom: 5px; width: 1px; background-repeat: repeat-y; }
+
+.ui-corners-side-left { left: 0; }
+
+.ui-corners-side-right { right: 0; }
+
+.ui-corners-corner { height: 5px; width: 5px; background-repeat: no-repeat; }
+
+.ui-corners-corner-tl { top: 0; left: 0; }
+
+.ui-corners-corner-tr { top: 0; right: 0; }
+
+.ui-corners-corner-br { bottom: 0; right: 0; }
+
+.ui-corners-corner-bl { bottom: 0; left: 0; }

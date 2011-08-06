@@ -1,0 +1,34 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Corners Test</title>
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/corners.css">
+  <style>
+  .box {
+  	background-color: yellow;
+  	width: 200px;
+  	height: 200px;
+  }
+  .ui-corners-corner, .ui-corners-side {
+  	background-color: red;
+  }
+  </style>
+</head>
+<body>
+<div class="box">
+	<h1>Content Title</h1>
+	<p>Content Body</p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script src="js/jquery-corners.js"></script>
+<script>
+$('.box').corners();
+</script>
+
+</body>
+</html>
