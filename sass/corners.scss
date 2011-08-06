@@ -335,31 +335,6 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   @return $val;
 }
 
-.normal {
-  @include corner-images(
-    "corner-tl.png",
-    "corner-t.png",
-    "corner-tr.png",
-    "corner-l.png",
-    "corner-br.png",
-    "corner-b.png",
-    "corner-bl.png",
-    "corner-l.png"
-  );
-}
-
-.sprite {
-  @include corner-images(
-    "corner.png" 12px 12px -13px -13px,
-    "corner.png" auto 0 -25px,
-    "corner.png" 12px 12px -1px -13px,
-    "corner.png" auto 11px 0,
-    "corner.png" 12px 12px -1px -1px,
-    "corner.png" auto 0 11px,
-    "corner.png" 12px 12px -13px -1px,
-    "corner.png" auto -25px 0
-  );
-}
 //-----------------------------------------------
 // Basic Styles
 //-----------------------------------------------
@@ -380,41 +355,6 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
     z-index: 0;
 }
 
-//-----------------------------------------------
-// Sides
-//-----------------------------------------------
-.ui-corners-side-top, .ui-corners-side-bottom {
-    left: $ui-corners-corner-width;
-    right: $ui-corners-corner-width;
-    height: $ui-corners-side-width;
-    background-repeat: repeat-x;
-}
-.ui-corners-side-top {
-    top: 0;
-    @if $ui-corners-side-width != $ui-corners-side-top-width { height: $ui-corners-side-top; }
-    background-position: left top;
-}
-.ui-corners-side-bottom {
-    bottom: 0;
-    @if $ui-corners-side-width != $ui-corners-side-bottom-width { height: $ui-corners-side-bottom; }
-    background-position: left bottom;
-}
-.ui-corners-side-left, .ui-corners-side-right {
-    top: $ui-corners-corner-height;
-    bottom: $ui-corners-corner-height;
-    width: $ui-corners-side-width;
-    background-repeat: repeat-y;
-}
-.ui-corners-side-left {
-    left: 0;
-    @if $ui-corners-side-width != $ui-corners-side-left-width { width: $ui-corners-side-left; }
-    background-position: left top;
-}
-.ui-corners-side-right {
-    right: 0;
-    @if $ui-corners-side-width != $ui-corners-side-right-width { width: $ui-corners-side-right; }
-    background-position: right top;
-}
 
 //-----------------------------------------------
 // Corners
@@ -451,4 +391,40 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
     @if $ui-corners-corner-height != $ui-corners-corner-bl-height { height: $ui-corners-corner-bl-height; }
     @if $ui-corners-corner-width != $ui-corners-corner-bl-width { width: $ui-corners-corner-bl-width; }
     background-position: left bottom;
+}
+
+//-----------------------------------------------
+// Sides
+//-----------------------------------------------
+.ui-corners-side-top, .ui-corners-side-bottom {
+    left: $ui-corners-corner-width;
+    right: $ui-corners-corner-width;
+    height: $ui-corners-side-width;
+    background-repeat: repeat-x;
+}
+.ui-corners-side-left, .ui-corners-side-right {
+    top: $ui-corners-corner-height;
+    bottom: $ui-corners-corner-height;
+    width: $ui-corners-side-width;
+    background-repeat: repeat-y;
+}
+.ui-corners-side-top {
+    top: 0;
+    @if $ui-corners-side-width != $ui-corners-side-top-width { height: $ui-corners-side-top; }
+    background-position: left top;
+}
+.ui-corners-side-bottom {
+    bottom: 0;
+    @if $ui-corners-side-width != $ui-corners-side-bottom-width { height: $ui-corners-side-bottom; }
+    background-position: left bottom;
+}
+.ui-corners-side-left {
+    left: 0;
+    @if $ui-corners-side-width != $ui-corners-side-left-width { width: $ui-corners-side-left; }
+    background-position: left top;
+}
+.ui-corners-side-right {
+    right: 0;
+    @if $ui-corners-side-width != $ui-corners-side-right-width { width: $ui-corners-side-right; }
+    background-position: right top;
 }
