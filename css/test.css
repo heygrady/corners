@@ -48,3 +48,7 @@
 .sprite .ui-corners-side-bottom { background-position: 0 11px; }
 .sprite .ui-corners-side-left { background-position: -25px 0; }
 .sprite .ui-corners-side-right { background-position: 11px 0; }
+
+.multiply { color: #000099; }
+
+.box { -moz-box-shadow: 4 3 5 0 rgba(0, 0, 0, 0.75) ; -webkit-box-shadow: 4 3 5 0 rgba(0, 0, 0, 0.75) ; -o-box-shadow: 4 3 5 0 rgba(0, 0, 0, 0.75) ; box-shadow: 4 3 5 0 rgba(0, 0, 0, 0.75) ; }

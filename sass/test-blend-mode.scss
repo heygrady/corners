@@ -1,0 +1,60 @@
+//@import "compass/utilities/color/contrast-color";
+@import "compass/css3";
+@import "blend-mode";
+
+
+$contrasted-dark-default:   #000 !default;
+$contrasted-light-default:  #fff !default;
+$contrasted-lightness-threshold: 30% !default;
+
+// Returns the `$light` color when the `$color` is dark
+// and the `$dark` color when the `$color` is light.
+// The `$threshold` is a percent between `0%` and `100%` and it determines
+// when the lightness of `$color` changes from "dark" to "light".
+@function contrast-color(
+  $color,
+  $dark: $contrasted-dark-default,
+  $light: $contrasted-light-default,
+  $threshold: $contrasted-lightness-threshold
+) {
+  @return if(lightness($color) < $threshold, $light, $dark)
+}
+
+// Sets the specified background color and calculates a dark or light contrasted text color.
+// The arguments are passed through to the [contrast-color function](#function-contrast-color).
+@mixin contrasted(
+  $background-color,
+  $dark: $contrasted-dark-default,
+  $light: $contrasted-light-default,
+  $threshold: $contrasted-lightness-threshold
+) {
+  background-color: $background-color;
+  color: contrast-color($background-color, $dark, $light, $threshold);
+}
+
+$base: #0099ff;
+$blend: #ff99ee;
+
+.blend {background-color: $blend; }
+.base {background-color: $base; }
+
+.normal { $color: blend-normal($base, $blend); @include contrasted($color); }
+.multiply { $color: blend-multiply($base, $blend); @include contrasted($color); }
+.lighten { $color: blend-lighten($base, $blend); @include contrasted($color); }
+.darken { $color: blend-darken($base, $blend); @include contrasted($color); }
+.darkercolor { $color: blend-darkercolor($base, $blend); @include contrasted($color); }
+.lightercolor { $color: blend-lightercolor($base, $blend); @include contrasted($color); }
+.lineardodge { $color: blend-lineardodge($base, $blend); @include contrasted($color); }
+.linearburn { $color: blend-linearburn($base, $blend); @include contrasted($color); }
+.difference { $color: blend-difference($base, $blend); @include contrasted($color); }
+.screen { $color: blend-screen($base, $blend); @include contrasted($color); }
+.exclusion { $color: blend-exclusion($base, $blend); @include contrasted($color); }
+.overlay { $color: blend-overlay($base, $blend); @include contrasted($color); }
+.softlight { $color: blend-softlight($base, $blend); @include contrasted($color); }
+.hardlight { $color: blend-hardlight($base, $blend); @include contrasted($color); }
+.colordodge { $color: blend-colordodge($base, $blend); @include contrasted($color); }
+.colorburn { $color: blend-colordodge($base, $blend); @include contrasted($color); }
+.linearlight { $color: blend-linearlight($base, $blend); @include contrasted($color); }
+.vividlight { $color: blend-vividlight($base, $blend); @include contrasted($color); }
+.pinlight { $color: blend-pinlight($base, $blend); @include contrasted($color); }
+.hardmix { $color: blend-hardmix($base, $blend); @include contrasted($color); }

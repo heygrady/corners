@@ -1,0 +1,43 @@
+.blend { background-color: #ff99ee; }
+
+.base { background-color: #0099ff; }
+
+.normal { background-color: #0099ff; color: black; }
+
+.multiply { background-color: #005bee; color: black; }
+
+.lighten { background-color: #ff99ff; color: black; }
+
+.darken { background-color: #0099ee; color: black; }
+
+.darkercolor { background-color: #0099ff; color: black; }
+
+.lightercolor { background-color: #ff99ee; color: black; }
+
+.lineardodge { background-color: white; color: black; }
+
+.linearburn { background-color: #0033ee; color: black; }
+
+.difference { background-color: #ff0011; color: black; }
+
+.screen { background-color: #ffd6ff; color: black; }
+
+.exclusion { background-color: #ff7a11; color: black; }
+
+.overlay { background-color: #00adff; color: black; }
+
+.softlight { background-color: #00a3ff; color: black; }
+
+.hardlight { background-color: #ffadff; color: black; }
+
+.colordodge { background-color: white; color: black; }
+
+.colorburn { background-color: white; color: black; }
+
+.linearlight { background-color: #fecbff; color: black; }
+
+.vividlight { background-color: #00bfff; color: black; }
+
+.pinlight { background-color: #ff99ff; color: black; }
+
+.hardmix { background-color: white; color: black; }

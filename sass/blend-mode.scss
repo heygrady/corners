@@ -1,0 +1,412 @@
+$blend-div: 2/255;
+
+/////////////////////////////////
+// Normal
+/////////////////////////////////
+@function blend-normal ($base, $blend) {
+	$opacity: opacity($base);
+	$blend-opacity: opacity($base);
+
+	// calculate opacity
+	$red: red($base) * $opacity + red($blend) * $blend-opacity * (1 - $opacity);
+	$green: green($base) * $opacity + green($blend) * $blend-opacity * (1 - $opacity);
+	$blue: blue($base) * $opacity + blue($blend) * $blend-opacity * (1 - $opacity);;
+	@return rgb($red, $green, $blue);
+}
+
+/////////////////////////////////
+// Multiply
+/////////////////////////////////
+@function blend-multiply ($base, $blend) {
+	$red: red($base) * red($blend) / 255;
+	$green: green($base) * green($blend) / 255;
+	$blue: blue($base) * blue($blend) / 255;
+	
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Lighten
+/////////////////////////////////
+@function blend-lighten ($base, $blend) {
+  $red: blend-lighten-color(red($base), red($blend));
+  $green: blend-lighten-color(green($base), green($blend));
+  $blue: blend-lighten-color(blue($base), blue($blend));
+  
+  @return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-lighten-color($base, $blend) {
+  @if $base > $blend {
+    $blend: $base;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Darken
+/////////////////////////////////
+@function blend-darken ($base, $blend) {
+  $red: blend-darken-color(red($base), red($blend));
+  $green: blend-darken-color(green($base), green($blend));
+  $blue: blend-darken-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-darken-color($base, $blend) {
+  @if $base < $blend {
+    $blend: $base;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Darker Color
+/////////////////////////////////
+@function blend-darkercolor ($base, $blend) {
+	$red: red($blend);
+	$green: green($blend);
+	$blue: blue($blend);
+	$base-red: red($base);
+	$base-green: green($base);
+	$base-blue: blue($base);
+	
+	@if $base-red * 0.3 + $base-green * 0.59 + $base-blue * 0.11 <= $red * 0.3 + $green * 0.59 + $blue * 0.11 {
+		$red: $base-red;
+		$green: $base-green;
+		$blue: $base-blue;
+	}
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Lighter Color
+/////////////////////////////////
+@function blend-lightercolor ($base, $blend) {
+	$red: red($blend);
+	$green: green($blend);
+	$blue: blue($blend);
+	$base-red: red($base);
+	$base-green: green($base);
+	$base-blue: blue($base);
+	
+	@if $base-red * 0.3 + $base-green * 0.59 + $base-blue * 0.11 > $red * 0.3 + $green * 0.59 + $blue * 0.11 {
+		$red: $base-red;
+		$green: $base-green;
+		$blue: $base-blue;
+	}
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Linear Dodge
+/////////////////////////////////
+@function blend-lineardodge ($base, $blend) {
+  $red: blend-lineardodge-color(red($base), red($blend));
+  $green: blend-lineardodge-color(green($base), green($blend));
+  $blue: blend-lineardodge-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-lineardodge-color($base, $blend) {
+  @if $base + $blend > 255 {
+    $blend: 255;
+  }
+  @else {
+    $blend: $base + $blend;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Linear Burn
+/////////////////////////////////
+@function blend-linearburn ($base, $blend) {
+  $red: blend-linearburn-color(red($base), red($blend));
+  $green: blend-linearburn-color(green($base), green($blend));
+  $blue: blend-linearburn-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-linearburn-color($base, $blend) {
+  @if $base + $blend < 255 {
+    $blend: 0;
+  }
+  @else {
+    $blend: $base + $blend - 255;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Difference
+/////////////////////////////////
+@function blend-difference ($base, $blend) {
+	$red: abs(red($base) - red($blend));
+	$green: abs(green($base) - green($blend));
+	$blue: abs(blue($base) - blue($blend));
+	
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Screen
+/////////////////////////////////
+@function blend-screen ($base, $blend) {
+	$red: red($blend);
+	$green: green($blend);
+	$blue: blue($blend);
+	$base-red: red($base);
+	$base-green: green($base);
+	$base-blue: blue($base);
+	
+
+	$red: (255 - ( ((255 - $red) * (255 - $base-red)) / 256));
+	$green: (255 - ( ((255 - $green) * (255 - $base-green)) / 256));
+	$blue: (255 - ( ((255 - $blue) * (255 - $base-blue)) / 256));
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Exclusion
+/////////////////////////////////
+@function blend-exclusion ($base, $blend) {
+	$red: red($blend);
+	$green: green($blend);
+	$blue: blue($blend);
+	$base-red: red($base);
+	$base-green: green($base);
+	$base-blue: blue($base);
+	
+
+	$red: $base-red - ($base-red * $blend-div - 1) * $red;
+	$green: $base-green - ($base-green * $blend-div - 1) * $green;
+	$blue: $base-blue - ($base-blue * $blend-div - 1) * $blue;
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+/////////////////////////////////
+// Overlay
+/////////////////////////////////
+@function blend-overlay ($base, $blend) {
+  $red: blend-overlay-color(red($base), red($blend));
+  $green: blend-overlay-color(green($base), green($blend));
+  $blue: blend-overlay-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-overlay-color($base, $blend) {
+  @if $base < 128 {
+    $blend: $blend * $base * $blend-div;
+  } @else {
+    $blend: 255 - (255 - $blend) * (255 - $base) * $blend-div;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Soft Light
+/////////////////////////////////
+@function blend-softlight ($base, $blend) {
+  $red: blend-softlight-color(red($base), red($blend));
+  $green: blend-softlight-color(green($base), green($blend));
+  $blue: blend-softlight-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-softlight-color($base, $blend) {
+  @if $base < 128 {
+    $blend: (($blend / 2) + 64) * $base * $blend-div;
+  } @else {
+    $blend: 255 - (191 - ($blend / 2)) * (255 - $base) * $blend-div;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Hard Light
+/////////////////////////////////
+@function blend-hardlight ($base, $blend) {
+  $red: blend-hardlight-color(red($base), red($blend));
+  $green: blend-hardlight-color(green($base), green($blend));
+  $blue: blend-hardlight-color(blue($base), blue($blend));
+  
+  @return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-hardlight-color($base, $blend) {
+  $tmp-blend: $blend;
+  @if $tmp-blend < 128 {
+    $blend: $base * $tmp-blend * $blend-div;
+  } @else {
+    $blend: 255 - (255-$base) * (255-$tmp-blend) * $blend-div;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Color Dodge
+/////////////////////////////////
+@function blend-colordodge ($base, $blend) {
+  $red: blend-colordodge-color(red($base), red($blend));
+  $green: blend-colordodge-color(green($base), green($blend));
+  $blue: blend-colordodge-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-colordodge-color($base, $blend) {
+  $tmp-blend: $blend;
+  $tmp: $base * 256 / (255 - $tmp-blend);
+  @if $tmp > 255 or $tmp-blend == 255 {
+    $blend: 255;
+  } @else {
+    $blend: $tmp;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Color Burn
+/////////////////////////////////
+@function blend-colorburn ($base, $blend) {
+  $red: blend-colorburn-color(red($base), red($blend));
+  $green: blend-colorburn-color(green($base), green($blend));
+  $blue: blend-colorburn-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-colorburn-color($base, $blend) {
+  $tmp: 255-((255 - $base) * 256 / $blend);
+  @if $tmp < 0 or $blend == 0 {
+    $blend: 0;
+  } @else {
+    $blend: $tmp;
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Linear Light
+/////////////////////////////////
+@function blend-linearlight ($base, $blend) {
+	$red: blend-linearlight-color(red($base), red($blend));
+	$green: blend-linearlight-color(green($base), green($blend));
+	$blue: blend-linearlight-color(blue($base), blue($blend));
+	
+	
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+@function blend-linearlight-color($base, $blend) {
+  $tmp-blend: $blend;
+  $tmp: 2 * $tmp-blend + $base - 256;
+  @if  $tmp < 0 or ($tmp-blend < 128 and $tmp < 0) {
+    $blend: 0;
+  } @else {
+    $blend: if($tmp > 255, 255, $tmp);
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Vivid Light
+/////////////////////////////////
+@function blend-vividlight ($base, $blend) {
+	$red: blend-vividlight-color(red($base), red($blend));
+	$green: blend-vividlight-color(green($base), green($blend));
+	$blue: blend-vividlight-color(blue($base), blue($blend));
+	
+	
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+@function blend-vividlight-color($base, $blend) {
+  $tmp-blend: $blend;
+  $tmp-a: 2 * $tmp-blend - 256;
+  $tmp-b: $tmp-a;
+  @if $blend < 128 {
+    @if $blend {
+      $tmp-a: 255 - ((255-$base)*256) / (2*$tmp-blend);
+      @if $tmp-a < 0 { 
+        $blend: 0;
+      }
+      @else {
+        $blend: $tmp-a;
+      }
+    } @else {
+      $blend: 0;
+    }
+  } @elseif $tmp-a < 255 {
+    $tmp-a: $base * 256 / (255 - $tmp-b);
+    @if $tmp-a > 255 {
+      $blend: 255;
+    } @else {
+      $blend: $tmp-a;
+    }
+  } @else {
+    @if ($tmp-a < 0) {
+      $blend: 0;
+    } @else {
+      $blend: $tmp-a;
+    }
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Pin Light
+/////////////////////////////////
+@function blend-pinlight ($base, $blend) {
+  $red:   blend-pinlight-color(red($base), red($blend));
+  $green: blend-pinlight-color(green($base), green($blend));
+  $blue:  blend-pinlight-color(blue($base), blue($blend));
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+@function blend-pinlight-color($base, $blend) {
+  $tmp-blend: $blend;
+  @if $tmp-blend < 128 {
+    $tmp: 2 * $tmp-blend;
+    @if $base < $tmp {
+      $blend: $base;
+    } @else {
+      $blend: $tmp;
+    }
+  } @else {
+    $tmp: 2 * $tmp-blend - 255;
+    @if $base > $tmp {
+      $blend: $base;
+    } @else {
+      $blend: $tmp;
+    }
+  }
+  @return $blend;
+}
+
+/////////////////////////////////
+// Hard Mix
+/////////////////////////////////
+@function blend-hardmix ($base, $blend) {
+  $red: blend-hardmix-color(red($base), red($blend));
+  $green: blend-hardmix-color(green($base), green($blend));
+  $blue: blend-hardmix-color(blue($base), blue($blend));
+  
+  
+	@return blend-normal(rgba($red, $green, $blue, opacity($base)), $blend);
+}
+
+@function blend-hardmix-color($base, $blend) {
+  $tmp-blend: $blend;
+  $tmp: 2 * $tmp-blend - 255;
+  @if $tmp-blend < 128 {
+    @if 255 - ((255-$base) * 256)/(2*$tmp-blend) < 128 or $tmp-blend == 0 {
+      $blend:  0;
+    } @else {
+      $blend: 255;
+    }
+  } @elseif $tmp < 255 and ($base * 256)/(255-$tmp) < 128 {
+    $blend:  0;
+  } @else {
+    $blend:  255;
+  }
+  
+  @return $blend;
+}
