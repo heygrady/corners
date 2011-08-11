@@ -24,20 +24,20 @@
 
 .exclusion { background-color: #ff7a11; color: black; }
 
-.overlay { background-color: #00adff; color: black; }
+.overlay { background-color: #ffadff; color: black; }
 
-.softlight { background-color: #00a3ff; color: black; }
+.softlight { background-color: #ffa3f6; color: black; }
 
-.hardlight { background-color: #ffadff; color: black; }
+.hardlight { background-color: #00adff; color: black; }
 
 .colordodge { background-color: white; color: black; }
 
 .colorburn { background-color: white; color: black; }
 
-.linearlight { background-color: #fecbff; color: black; }
+.linearlight { background-color: #00cbff; color: black; }
 
 .vividlight { background-color: #00bfff; color: black; }
 
-.pinlight { background-color: #ff99ff; color: black; }
+.pinlight { background-color: #0099ff; color: black; }
 
-.hardmix { background-color: white; color: black; }
+.hardmix { background-color: aqua; color: black; }

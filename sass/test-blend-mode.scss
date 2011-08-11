@@ -32,29 +32,29 @@ $contrasted-lightness-threshold: 30% !default;
   color: contrast-color($background-color, $dark, $light, $threshold);
 }
 
-$base: #0099ff;
-$blend: #ff99ee;
+$blend: #0099ff;
+$base: #ff99ee;
 
-.blend {background-color: $blend; }
-.base {background-color: $base; }
+.blend {background-color: $base; }
+.base {background-color: $blend; }
 
-.normal { $color: blend-normal($base, $blend); @include contrasted($color); }
-.multiply { $color: blend-multiply($base, $blend); @include contrasted($color); }
-.lighten { $color: blend-lighten($base, $blend); @include contrasted($color); }
-.darken { $color: blend-darken($base, $blend); @include contrasted($color); }
-.darkercolor { $color: blend-darkercolor($base, $blend); @include contrasted($color); }
-.lightercolor { $color: blend-lightercolor($base, $blend); @include contrasted($color); }
-.lineardodge { $color: blend-lineardodge($base, $blend); @include contrasted($color); }
-.linearburn { $color: blend-linearburn($base, $blend); @include contrasted($color); }
-.difference { $color: blend-difference($base, $blend); @include contrasted($color); }
-.screen { $color: blend-screen($base, $blend); @include contrasted($color); }
-.exclusion { $color: blend-exclusion($base, $blend); @include contrasted($color); }
-.overlay { $color: blend-overlay($base, $blend); @include contrasted($color); }
-.softlight { $color: blend-softlight($base, $blend); @include contrasted($color); }
-.hardlight { $color: blend-hardlight($base, $blend); @include contrasted($color); }
-.colordodge { $color: blend-colordodge($base, $blend); @include contrasted($color); }
-.colorburn { $color: blend-colordodge($base, $blend); @include contrasted($color); }
-.linearlight { $color: blend-linearlight($base, $blend); @include contrasted($color); }
-.vividlight { $color: blend-vividlight($base, $blend); @include contrasted($color); }
-.pinlight { $color: blend-pinlight($base, $blend); @include contrasted($color); }
-.hardmix { $color: blend-hardmix($base, $blend); @include contrasted($color); }
+.normal { $color: blend-normal($blend, $base); @include contrasted($color); }
+.multiply { $color: blend-multiply($blend, $base); @include contrasted($color); }
+.lighten { $color: blend-lighten($blend, $base); @include contrasted($color); }
+.darken { $color: blend-darken($blend, $base); @include contrasted($color); }
+.darkercolor { $color: blend-darkercolor($blend, $base); @include contrasted($color); }
+.lightercolor { $color: blend-lightercolor($blend, $base); @include contrasted($color); }
+.lineardodge { $color: blend-lineardodge($blend, $base); @include contrasted($color); }
+.linearburn { $color: blend-linearburn($blend, $base); @include contrasted($color); }
+.difference { $color: blend-difference($blend, $base); @include contrasted($color); }
+.screen { $color: blend-screen($blend, $base); @include contrasted($color); }
+.exclusion { $color: blend-exclusion($blend, $base); @include contrasted($color); }
+.overlay { $color: blend-overlay($blend, $base); @include contrasted($color); }
+.softlight { $color: blend-softlight($blend, $base); @include contrasted($color); }
+.hardlight { $color: blend-hardlight($blend, $base); @include contrasted($color); }
+.colordodge { $color: blend-colordodge($blend, $base); @include contrasted($color); }
+.colorburn { $color: blend-colordodge($blend, $base); @include contrasted($color); }
+.linearlight { $color: blend-linearlight($blend, $base); @include contrasted($color); }
+.vividlight { $color: blend-vividlight($blend, $base); @include contrasted($color); }
+.pinlight { $color: blend-pinlight($blend, $base); @include contrasted($color); }
+.hardmix { $color: blend-hardmix($blend, $base); @include contrasted($color); }
