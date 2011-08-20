@@ -35,8 +35,8 @@ $contrasted-lightness-threshold: 30% !default;
 $blend: #0099ff;
 $base: #ff99ee;
 
-.blend {background-color: $base; }
-.base {background-color: $blend; }
+.blend { background-color: $blend; }
+.base { background-color: $base; }
 
 .normal { $color: blend-normal($blend, $base); @include contrasted($color); }
 .multiply { $color: blend-multiply($blend, $base); @include contrasted($color); }
@@ -53,7 +53,7 @@ $base: #ff99ee;
 .softlight { $color: blend-softlight($blend, $base); @include contrasted($color); }
 .hardlight { $color: blend-hardlight($blend, $base); @include contrasted($color); }
 .colordodge { $color: blend-colordodge($blend, $base); @include contrasted($color); }
-.colorburn { $color: blend-colordodge($blend, $base); @include contrasted($color); }
+.colorburn { $color: blend-colorburn($blend, $base); @include contrasted($color); }
 .linearlight { $color: blend-linearlight($blend, $base); @include contrasted($color); }
 .vividlight { $color: blend-vividlight($blend, $base); @include contrasted($color); }
 .pinlight { $color: blend-pinlight($blend, $base); @include contrasted($color); }

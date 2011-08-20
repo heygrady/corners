@@ -1,6 +1,4 @@
-
-@import "compass/css3";
-@import "corners";
+@import "ui-corners";
 
 .normal {
   @include corner-images(
@@ -13,6 +11,7 @@
     "corner-bl.png",
     "corner-l.png"
   );
+  @include corner-border-width(1px, 10px);
 }
 
 .sprite {
@@ -26,38 +25,5 @@
     "corner.png" 12px 12px -13px -1px,
     "corner.png" auto -25px 0
   );
-}
-
-
-@function color-multiply($base, $blend) {
-  $r: red($base) * red($blend) / 255;
-  $g: green($base) * green($blend) / 255;
-  $b: blue($base) * blue($blend) / 255;
-  @return rgb($r, $g, $b);
-}
-$base: #0000ff;
-$blend: #30d699;
-.multiply {
-  color: color-multiply($base, $blend);
-}
-
-//--------------------------------
-// Photoshop Drop Shadow
-//--------------------------------
-@mixin photoshop-drop-shadow ($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000, $inner: false) {
-  $h-shadow: round(cos($angle) * $distance);
-  $v-shadow: round(sin($angle) * $distance);
-  $css-spread: $size * $spread/100;
-  $blur: ($size - $css-spread);
-  
-  $inset: '';
-  @if $inner != false {
-    $inset: 'inset';
-  }
-  
-  @include box-shadow($h-shadow $v-shadow $blur $css-spread $color unquote($inset));
-}
-
-.box {
-  @include photoshop-drop-shadow(120, 5, 0, 5, rgba(0, 0, 0, 0.75));
+  @include corner-border-width(1px, 10px);
 }

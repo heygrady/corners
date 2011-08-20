@@ -253,9 +253,8 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 @function blend-colordodge-color($blend, $base) {
-  $tmp-blend: $blend;
-  $tmp: $base * 256 / (255 - $tmp-blend);
-  @if $tmp > 255 or $tmp-blend == 255 {
+  $tmp: $base * 256 / (255 - $blend);
+  @if $tmp > 255 or $blend == 255 {
     $blend: 255;
   } @else {
     $blend: $tmp;
@@ -270,12 +269,16 @@ $blend-div: 2/255;
   $red: blend-colorburn-color(red($blend), red($base));
   $green: blend-colorburn-color(green($blend), green($base));
   $blue: blend-colorburn-color(blue($blend), blue($base));
-  
+
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 @function blend-colorburn-color($blend, $base) {
-  $tmp: 255-((255 - $base) * 256 / $blend);
-  @if $tmp < 0 or $blend == 0 {
+  $tmp: (256 - ((255 - $base) * 256) / $blend);
+  
+  // TODO: hacked to replicate photoshop
+  @if $blend == 0 {
+    $blend: 255;
+  } @elseif $tmp < 0 {
     $blend: 0;
   } @else {
     $blend: $tmp;
@@ -290,17 +293,14 @@ $blend-div: 2/255;
 	$red: blend-linearlight-color(red($blend), red($base));
 	$green: blend-linearlight-color(green($blend), green($base));
 	$blue: blend-linearlight-color(blue($blend), blue($base));
-	
-	
+
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 @function blend-linearlight-color($blend, $base) {
-  $tmp-blend: $blend;
-  $tmp: 2 * $tmp-blend + $base - 256;
-  @if  $tmp < 0 or ($tmp-blend < 128 and $tmp < 0) {
-    $blend: 0;
+  @if $blend < 128 {
+    $blend: blend-linearburn-color($base, 2 * $blend);
   } @else {
-    $blend: if($tmp > 255, 255, $tmp);
+    $blend: blend-lineardodge-color($base, 2 * ($blend - 128));
   }
   @return $blend;
 }
@@ -317,34 +317,10 @@ $blend-div: 2/255;
 }
 
 @function blend-vividlight-color($blend, $base) {
-  $tmp-blend: $blend;
-  $tmp-a: (2 * $tmp-blend) - 256;
-  $tmp-b: $tmp-a;
   @if $blend < 128 {
-    @if $blend > 0 {
-      $tmp-a: 255 - ((255-$base)*256) / (2*$tmp-blend);
-      @if $tmp-a < 0 { 
-        $blend: 0;
-      }
-      @else {
-        $blend: $tmp-a;
-      }
-    } @else {
-      $blend: 0;
-    }
-  } @elseif $tmp-a < 255 {
-    $tmp-a: $base * 256 / (255 - $tmp-b);
-    @if $tmp-a > 255 {
-      $blend: 255;
-    } @else {
-      $blend: $tmp-a;
-    }
+    $blend: blend-colorburn-color(2 * $blend, $base);
   } @else {
-    @if ($tmp-a < 0) {
-      $blend: 0;
-    } @else {
-      $blend: $tmp-a;
-    }
+    $blend: blend-colordodge-color(2 * ($blend - 128), $base);
   }
   @return $blend;
 }
@@ -361,21 +337,10 @@ $blend-div: 2/255;
 }
 
 @function blend-pinlight-color($blend, $base) {
-  $tmp-blend: $blend;
-  @if $tmp-blend < 128 {
-    $tmp: 2 * $tmp-blend;
-    @if $base < $tmp {
-      $blend: $base;
-    } @else {
-      $blend: $tmp;
-    }
+  @if $blend < 128 {
+    $blend: blend-darken-color($base, 2 * $blend);
   } @else {
-    $tmp: 2 * $tmp-blend - 255;
-    @if $base > $tmp {
-      $blend: $base;
-    } @else {
-      $blend: $tmp;
-    }
+    $blend: blend-lighten-color($base, 2 * ($blend - 128));
   }
   @return $blend;
 }
@@ -388,24 +353,15 @@ $blend-div: 2/255;
   $green: blend-hardmix-color(green($blend), green($base));
   $blue: blend-hardmix-color(blue($blend), blue($base));
   
-  
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
 @function blend-hardmix-color($blend, $base) {
-  $tmp-blend: $blend;
-  $tmp: 2 * $tmp-blend - 255;
-  @if $tmp-blend < 128 {
-    @if 255 - ((255-$base) * 256)/(2*$tmp-blend) < 128 or $tmp-blend == 0 {
-      $blend:  0;
-    } @else {
-      $blend: 255;
-    }
-  } @elseif $tmp < 255 and ($base * 256)/(255-$tmp) < 128 {
-    $blend:  0;
+  $tmp: blend-vividlight-color($blend, $base);
+  @if $tmp < 128 {
+    $blend: 0;
   } @else {
-    $blend:  255;
+    $blend: 255;
   }
-  
   @return $blend;
 }

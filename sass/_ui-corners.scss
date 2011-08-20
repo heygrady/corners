@@ -23,6 +23,54 @@ $ui-corners-side-left-width: $ui-corners-side-width !default;
 $ui-corners-side-right-width: $ui-corners-side-width !default;
 
 //-----------------------------------------------
+// Corner Border Width
+// Adds padding to the corner container to simulate a border
+// The second parameter allows for setting an inner padding in addition to the border
+// @param list $width border-width list: [top] [right] [bottom] [left]
+// @param list $padding (optional) padding list: [top] [right] [bottom] [left]
+//-----------------------------------------------
+@mixin corner-border-width ($border-width, $padding: false) {
+  @if $padding {
+    $border-width: corner-zip-widths($border-width, $padding);
+  }
+  &.ui-corners { padding: $border-width; }
+}
+
+//-----------------------------------------------
+// Corner Zip Widths
+// returns a list of the two lists added together
+// @param list $a list of widths: [top] [right] [bottom] [left]
+// @param list $b (optional) list of widths: [top] [right] [bottom] [left]
+// @return list
+//-----------------------------------------------
+@function corner-zip-widths($a, $b: 0) {
+  $a-t: corner-nth($a, 1, 0);
+  $a-r: corner-nth($a, 2, $a-t);
+  $a-b: corner-nth($a, 3, $a-t);
+  $a-l: corner-nth($a, 4, $a-r);
+  
+  $b-t: corner-nth($b, 1, 0);
+  $b-r: corner-nth($b, 2, $b-t);
+  $b-b: corner-nth($b, 3, $b-t);
+  $b-l: corner-nth($b, 4, $b-r);
+  
+  $a-t: $a-t + $b-t;
+  $a-r: $a-r + $b-r;
+  $a-b: $a-b + $b-b;
+  $a-l: $a-l + $b-l;
+  
+  @if $a-t == $a-b and $a-r == $a-l and $a-t == $a-r {
+    @return $a-t; // all equal
+  } @elseif $a-t == $a-b and $a-r == $a-l and $a-t != $a-r {
+    @return $a-t $a-r; // x and y different
+  } @elseif $a-t != $a-b and $a-r == $a-l {
+    @return $a-t $a-r $a-b; // y different
+  } @else {
+    @return $a-t $a-r $a-b $a-l;// all different
+  }
+}
+
+//-----------------------------------------------
 // Corner Images
 // @param list $tl [backgorund-image] [width] [height] [background-position-x] [background-position-y] [left] [top] top-left corner
 // @param list $t  [backgorund-image] [height] [background-position-x] [background-position-y] [left] [right] [top] top side
@@ -163,7 +211,6 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   $width: false;
   $height: false;
   
-  
   // check all sides are the same
   @if $t-left == $b-left { $left: $t-left; }
   @if $t-right == $b-right { $right: $t-right; }
@@ -188,6 +235,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
       @if $t-image != none and $t-image == $b-image { background-image: image-url($t-image); $t-image: none; $b-image: none; }
     }
   }
+  
   // set the left and right sides with a generic class
   @if ($top and $top != $ui-corners-corner-height) or ($bottom and $bottom != $ui-corners-corner-height)
       or ($width and $width != $ui-corners-side-width) or ($l-image != none and $l-image == $r-image) {
@@ -310,7 +358,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
 }
 
 //-----------------------------------------------
-// Corner Image Width
+// Corner Image Width/Height
 // returns the width of an image or default
 // @param image $image
 //-----------------------------------------------
@@ -336,7 +384,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
 }
 
 //-----------------------------------------------
-// Basic Styles
+// Basic Styles (required)
 //-----------------------------------------------
 // corner wrapper
 .ui-corners {
