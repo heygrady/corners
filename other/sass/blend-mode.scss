@@ -1,8 +1,6 @@
-$blend-div: 2/255;
-
-/////////////////////////////////
+//--------------------------------
 // Normal
-/////////////////////////////////
+//--------------------------------
 @function blend-normal ($blend, $base) {
 	$opacity: opacity($blend);
 	$base-opacity: opacity($base);
@@ -14,9 +12,9 @@ $blend-div: 2/255;
 	@return rgb($red, $green, $blue);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Multiply
-/////////////////////////////////
+//--------------------------------
 @function blend-multiply ($blend, $base) {
 	$red: red($base) * red($blend) / 255;
 	$green: green($base) * green($blend) / 255;
@@ -25,9 +23,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Lighten
-/////////////////////////////////
+//--------------------------------
 @function blend-lighten ($blend, $base) {
   $red: blend-lighten-color(red($blend), red($base));
   $green: blend-lighten-color(green($blend), green($base));
@@ -42,9 +40,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Darken
-/////////////////////////////////
+//--------------------------------
 @function blend-darken ($blend, $base) {
   $red: blend-darken-color(red($blend), red($base));
   $green: blend-darken-color(green($blend), green($base));
@@ -59,9 +57,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Darker Color
-/////////////////////////////////
+//--------------------------------
 @function blend-darkercolor ($blend, $base) {
 	$red: red($blend);
 	$green: green($blend);
@@ -78,9 +76,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Lighter Color
-/////////////////////////////////
+//--------------------------------
 @function blend-lightercolor ($blend, $base) {
 	$red: red($blend);
 	$green: green($blend);
@@ -97,9 +95,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Linear Dodge
-/////////////////////////////////
+//--------------------------------
 @function blend-lineardodge ($blend, $base) {
   $red: blend-lineardodge-color(red($blend), red($base));
   $green: blend-lineardodge-color(green($blend), green($base));
@@ -117,9 +115,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Linear Burn
-/////////////////////////////////
+//--------------------------------
 @function blend-linearburn ($blend, $base) {
   $red: blend-linearburn-color(red($blend), red($base));
   $green: blend-linearburn-color(green($blend), green($base));
@@ -137,9 +135,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Difference
-/////////////////////////////////
+//--------------------------------
 @function blend-difference ($blend, $base) {
 	$red: abs(red($base) - red($blend));
 	$green: abs(green($base) - green($blend));
@@ -148,9 +146,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Screen
-/////////////////////////////////
+//--------------------------------
 @function blend-screen ($blend, $base) {
 	$red: red($blend);
 	$green: green($blend);
@@ -166,9 +164,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Exclusion
-/////////////////////////////////
+//--------------------------------
 @function blend-exclusion ($blend, $base) {
 	$red: red($blend);
 	$green: green($blend);
@@ -184,9 +182,9 @@ $blend-div: 2/255;
 	@return blend-normal(rgba($red, $green, $blue, opacity($blend)), $base);
 }
 
-/////////////////////////////////
+//--------------------------------
 // Overlay
-/////////////////////////////////
+//--------------------------------
 @function blend-overlay ($blend, $base) {
   $red: blend-overlay-color(red($blend), red($base));
   $green: blend-overlay-color(green($blend), green($base));
@@ -203,9 +201,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Soft Light
-/////////////////////////////////
+//--------------------------------
 @function blend-softlight ($blend, $base) {
   $red: blend-softlight-color(red($blend), red($base));
   $green: blend-softlight-color(green($blend), green($base));
@@ -222,9 +220,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Hard Light
-/////////////////////////////////
+//--------------------------------
 @function blend-hardlight ($blend, $base) {
   $red: blend-hardlight-color(red($blend), red($base));
   $green: blend-hardlight-color(green($blend), green($base));
@@ -242,9 +240,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Color Dodge
-/////////////////////////////////
+//--------------------------------
 @function blend-colordodge ($blend, $base) {
   $red: blend-colordodge-color(red($blend), red($base));
   $green: blend-colordodge-color(green($blend), green($base));
@@ -262,9 +260,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Color Burn
-/////////////////////////////////
+//--------------------------------
 @function blend-colorburn ($blend, $base) {
   $red: blend-colorburn-color(red($blend), red($base));
   $green: blend-colorburn-color(green($blend), green($base));
@@ -286,9 +284,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Linear Light
-/////////////////////////////////
+//--------------------------------
 @function blend-linearlight ($blend, $base) {
 	$red: blend-linearlight-color(red($blend), red($base));
 	$green: blend-linearlight-color(green($blend), green($base));
@@ -305,9 +303,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Vivid Light
-/////////////////////////////////
+//--------------------------------
 @function blend-vividlight ($blend, $base) {
 	$red: blend-vividlight-color(red($blend), red($base));
 	$green: blend-vividlight-color(green($blend), green($base));
@@ -325,9 +323,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Pin Light
-/////////////////////////////////
+//--------------------------------
 @function blend-pinlight ($blend, $base) {
   $red:   blend-pinlight-color(red($blend), red($base));
   $green: blend-pinlight-color(green($blend), green($base));
@@ -345,9 +343,9 @@ $blend-div: 2/255;
   @return $blend;
 }
 
-/////////////////////////////////
+//--------------------------------
 // Hard Mix
-/////////////////////////////////
+//--------------------------------
 @function blend-hardmix ($blend, $base) {
   $red: blend-hardmix-color(red($blend), red($base));
   $green: blend-hardmix-color(green($blend), green($base));
