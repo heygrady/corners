@@ -193,17 +193,17 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   
   // Side left, right, top and bottom
   $t-height: corner-var(corner-nth($t, 2, auto) $tl-height $ui-corners-side-left-width);
-  $t-left:   corner-var(corner-nth($t, 5, auto) $tl-width $ui-corners-corner-width);
-  $t-right:  corner-var(corner-nth($t, 6, auto) $tr-width $ui-corners-corner-width);
+  $t-left:   corner-var(corner-nth($t, 6, auto) ($tl-width + corner-nth($tl, 6, 0)) $ui-corners-corner-width);
+  $t-right:  corner-var(corner-nth($t, 7, auto) ($tr-width + corner-nth($tr, 6, 0)) $ui-corners-corner-width);
   $b-height: corner-var(corner-nth($b, 2, auto) $bl-height $ui-corners-side-left-width);
-  $b-left:   corner-var(corner-nth($b, 5, auto) $bl-width $ui-corners-corner-width);
-  $b-right:  corner-var(corner-nth($b, 6, auto) $br-width $ui-corners-corner-width);
+  $b-left:   corner-var(corner-nth($b, 6, auto) ($bl-width + corner-nth($bl, 6, 0)) $ui-corners-corner-width);
+  $b-right:  corner-var(corner-nth($b, 7, auto) ($br-width + corner-nth($br, 6, 0)) $ui-corners-corner-width);
   $l-width:  corner-var(corner-nth($l, 2, auto) $tl-width $ui-corners-side-left-width);
-  $l-top:    corner-var(corner-nth($l, 6, auto) $tl-height $ui-corners-corner-height);
-  $l-bottom: corner-var(corner-nth($l, 7, auto) $bl-height $ui-corners-corner-height);
+  $l-top:    corner-var(corner-nth($l, 6, auto) ($tl-height + corner-nth($tl, 7, 0)) $ui-corners-corner-height);
+  $l-bottom: corner-var(corner-nth($l, 7, auto) ($bl-height + corner-nth($bl, 7, 0)) $ui-corners-corner-height);
   $r-width:  corner-var(corner-nth($r, 2, auto) $tr-width $ui-corners-side-right-width);
-  $r-top:    corner-var(corner-nth($r, 6, auto) $tr-height $ui-corners-corner-height);
-  $r-bottom: corner-var(corner-nth($r, 7, auto) $br-height $ui-corners-corner-height);
+  $r-top:    corner-var(corner-nth($r, 6, auto) ($tr-height + corner-nth($tr, 7, 0)) $ui-corners-corner-height);
+  $r-bottom: corner-var(corner-nth($r, 7, auto) ($br-height + corner-nth($br, 7, 0)) $ui-corners-corner-height);
   
   // normalize left and right, top and bottom
   $left: false;
@@ -259,8 +259,8 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
         $x: corner-nth($t, 3, auto) false left,
         $y: corner-nth($t, 4, auto) false top,
         $l: if($left, false, $t-left),
-        $r: if($right, false, $t-right),
-        $t: corner-nth($t, 7, auto) false 0
+        $r: if($right, false, $t-right) + corner-nth($tr, 6, 0),
+        $t: corner-nth($t, 5, auto) false 0
       );
     }
   }
@@ -275,7 +275,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
         $y: corner-nth($b, 4, auto) false bottom,
         $l: if($left, false, $b-left),
         $r: if($right, false, $b-right),
-        $b: corner-nth($b, 7, auto) false 0
+        $b: corner-nth($b, 5, auto) false 0
       );
     }
   }
