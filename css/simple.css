@@ -1,0 +1,33 @@
+/* Default Corners CSS*/
+.ui-corners { position: relative; }
+
+.ui-corners-content { position: relative; z-index: 1; }
+
+.ui-corners-corner, .ui-corners-side { position: absolute; z-index: 0; }
+
+.ui-corners-corner { height: 10px; width: 10px; background-repeat: no-repeat; }
+
+.ui-corners-corner-tl { top: 0; left: 0; background-position: left top; }
+
+.ui-corners-corner-tr { top: 0; right: 0; background-position: right top; }
+
+.ui-corners-corner-br { bottom: 0; right: 0; background-position: right bottom; }
+
+.ui-corners-corner-bl { bottom: 0; left: 0; background-position: left bottom; }
+
+.ui-corners-side-top, .ui-corners-side-bottom { left: 10px; right: 10px; height: 10px; background-repeat: repeat-x; }
+
+.ui-corners-side-left, .ui-corners-side-right { top: 10px; bottom: 10px; width: 10px; background-repeat: repeat-y; }
+
+.ui-corners-side-top { top: 0; background-position: left top; }
+
+.ui-corners-side-bottom { bottom: 0; background-position: left bottom; }
+
+.ui-corners-side-left { left: 0; background-position: left top; }
+
+.ui-corners-side-right { right: 0; background-position: right top; }
+
+/* Custom Corners CSS */
+.ui-corners-corner { background-color: red; opacity: 0.75; }
+
+.ui-corners-side { background-color: green; opacity: 0.75; }

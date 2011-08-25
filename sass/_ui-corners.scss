@@ -1,10 +1,12 @@
 //-----------------------------------------------
 // Variables
 //-----------------------------------------------
+$ui-corners-cache-buster: true !default;
+
 // default widths
-$ui-corners-corner-height: 5px !default;
-$ui-corners-corner-width: 5px !default;
-$ui-corners-side-width: 1px !default;
+$ui-corners-corner-height: 10px !default;
+$ui-corners-corner-width: 10px !default;
+$ui-corners-side-width: 10px !default;
 
 // defaults per corner
 $ui-corners-corner-tl-height: $ui-corners-corner-height !default;
@@ -72,14 +74,14 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
 
 //-----------------------------------------------
 // Corner Images
-// @param list $tl [backgorund-image] [width] [height] [background-position-x] [background-position-y] [left] [top] top-left corner
-// @param list $t  [backgorund-image] [height] [background-position-x] [background-position-y] [left] [right] [top] top side
-// @param list $tr [backgorund-image] [width] [height] [background-position-x] [background-position-y] [right] [top] top-right corner
-// @param list $r  [backgorund-image] [width] [background-position-x] [background-position-y] [right] [top] [bottom] right side
-// @param list $br [backgorund-image] [width] [height] [background-position-x] [background-position-y] [right] [bottom] bottom-right corner
-// @param list $b  [backgorund-image] [height] [background-position-x] [background-position-y] [left] [right] [bottom] bottom side
-// @param list $bl [backgorund-image] [width] [height] [background-position-x] [background-position-y] [left] [bottom] bottom-left corner
-// @param list $l  [backgorund-image] [width] [background-position-x] [background-position-y] [left] [top] [bottom] left side
+// @param list $tl [background-image] [width] [height] [background-position-x] [background-position-y] [left] [top] top-left corner
+// @param list $t  [background-image] [height] [background-position-x] [background-position-y] [left] [right] [top] top side
+// @param list $tr [background-image] [width] [height] [background-position-x] [background-position-y] [right] [top] top-right corner
+// @param list $r  [background-image] [width] [background-position-x] [background-position-y] [right] [top] [bottom] right side
+// @param list $br [background-image] [width] [height] [background-position-x] [background-position-y] [right] [bottom] bottom-right corner
+// @param list $b  [background-image] [height] [background-position-x] [background-position-y] [left] [right] [bottom] bottom side
+// @param list $bl [background-image] [width] [height] [background-position-x] [background-position-y] [left] [bottom] bottom-left corner
+// @param list $l  [background-image] [width] [background-position-x] [background-position-y] [left] [top] [bottom] left side
 //-----------------------------------------------
 @mixin corner-images ($tl: auto, $t: auto, $tr: auto, $r: auto, $br: auto, $b: auto, $bl: auto, $l: auto) {
   // corner images and dimensions
@@ -100,7 +102,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   // all backgrounds are the same
   @if $tl-image != none and $tl-image == $t-image and $tl-image == $tr-image and $tl-image == $r-image
       and $tl-image == $br-image and $tl-image == $b-image and $tl-image == $b-image and $tl-image == $l-image {
-    .ui-corners-corner, .ui-corners-side { background-image: image-url($tl-image); }
+    .ui-corners-corner, .ui-corners-side { background-image: image-url($tl-image, false, $ui-corners-cache-buster); }
     $tl-image: none; $tr-image: none; $br-image: none; $bl-image: none;
     $t-image: none; $r-image: none; $b-image: none; $l-image: none;
   }
@@ -123,7 +125,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
       @if $width and $width != $ui-corners-corner-width { width: $width; }
       @if $height and $height != $ui-corners-corner-height { height: $height; }
       @if $tl-image != none and $tl-image == $tr-image and $tl-image == $br-image and $tl-image == $bl-image {
-        background-image: image-url($tl-image);
+        background-image: image-url($tl-image, false, $ui-corners-cache-buster);
         $tl-image: none; $tr-image: none; $br-image: none; $bl-image: none;
       }
     }
@@ -220,7 +222,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   @if $l-width == $r-width { $width: $l-width; }
   
   @if $t-image != none and $t-image == $r-image and $t-image == $b-image and $t-image == $l-image {
-    .ui-corners-side { background-image: image-url($t-image); }
+    .ui-corners-side { background-image: image-url($t-image, false, $ui-corners-cache-buster); }
     $t-image: none; $r-image: none; $b-image: none; $l-image: none;
   }
   
@@ -232,7 +234,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
       @if $left and $left != $ui-corners-corner-width { left: $left; }
       @if $right and $right != $ui-corners-corner-width { right: $right; }
       @if $height and $height != $ui-corners-side-width { height: $height; }
-      @if $t-image != none and $t-image == $b-image { background-image: image-url($t-image); $t-image: none; $b-image: none; }
+      @if $t-image != none and $t-image == $b-image { background-image: image-url($t-image, false, $ui-corners-cache-buster); $t-image: none; $b-image: none; }
     }
   }
   
@@ -244,7 +246,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
       @if $top and $top != $ui-corners-corner-height { top: $top; }
       @if $bottom and $bottom != $ui-corners-corner-height { bottom: $bottom; }
       @if $width and $width != $ui-corners-side-width { width: $width; }
-      @if $l-image != none and $l-image == $r-image { background-image: image-url($l-image); $l-image: none; $r-image: none; }
+      @if $l-image != none and $l-image == $r-image { background-image: image-url($l-image, false, $ui-corners-cache-buster); $l-image: none; $r-image: none; }
     }
   }
   
@@ -331,7 +333,7 @@ $ui-corners-side-right-width: $ui-corners-side-width !default;
   $width:  corner-var($w);
   $height: corner-var($h);
   
-  @if $image  != none { background-image: image-url($image); }
+  @if $image  != none { background-image: image-url($image, false, $ui-corners-cache-buster); }
   @if $left   != false { left: $left; }
   @if $right  != false { right: $right; }
   @if $top    != false { top: $top; }
