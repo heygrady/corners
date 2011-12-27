@@ -1,9 +1,9 @@
-= UI Corners
+# UI Corners
 SASS and JavaScript for easy cross-browser rounded corners.
 
 [See the blog article](http://heygrady.com/blog/2011/08/25/using-images-and-javascript-and-compass-for-easy-cross-browser-rounded-corners/)
 
-== Example Markup
+## Example Markup
 The point of this project is to apply styling to a simple set of markup that will work cross-browser (neglecting IE6) and replicate the ease-of-use and look of `border-radius` using images. You can add this markup to your HTML directly or use the jQuery plugin to do it for you.
 
 ```html
@@ -23,10 +23,10 @@ The point of this project is to apply styling to a simple set of markup that wil
 </div>
 ```
 
-== Using the jQuery Plugin
+## Using the jQuery Plugin
 The JavaScript file will automatically add the necessary markup to the page to make the CSS work correctly.
 
-=== Before the Plugin
+### Before the Plugin
 Assuming we're starting with some normal markup we might have a simple `div` containing some content like below.
 
 ```html
@@ -36,24 +36,24 @@ Assuming we're starting with some normal markup we might have a simple `div` con
 </div>
 ```
 
-=== Applying the Plugin
+### Applying the Plugin
 The plugin only adds markup to the page. You need to use the SASS plugin to actually add the styles.
 
 ```javascript
 $('.box').corners(); // no options are available
 ```
 
-== Using the SASS File
+## Using the SASS File
 The SASS file contains some useful mixins for adding images as background images. It relies on the (compass library)[http://compass-style.org/] for working with the images and will attempt to measure each background image to make configuration easier.
 
-=== Mixins
-==== corner-border-width($border-width, [$padding])
+### Mixins
+#### corner-border-width($border-width, [$padding])
 Because the corner plugin is used to fake borders, it is necessary to remove real borders and fake them using `padding`.
 
 - **$border-width** Fakes the border-width using padding. Can be a single value or a (list of values)[http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists] matching the (CSS `padding` spec)[https://developer.mozilla.org/en/CSS/padding]. Only pixel values are supported.
 - **$padding** Provides extra padding in addition to the faked border padding. Can be a single value or a (list of values)[http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists] matching the (CSS `padding` spec)[https://developer.mozilla.org/en/CSS/padding]. Only pixel values are supported.
 
-==== corner-images([$tl], [$t], [$tr], [$r], [$br], [$b], [$bl], [$l])
+#### corner-images([$tl], [$t], [$tr], [$r], [$br], [$b], [$bl], [$l])
 This mixing adds all of the provided images as background images to the corresponding `span` elements. At a minimum, 8 images should be supplied (one for each corner and side). Each argument can be a list. The arguments are ordered clock-wise starting from the top-left corner. Corners and sides use slightly different arguments for the list. Normally all arguments are calculated automatically except for the `background-image`.
 
 - **corner** [background-image] [width] [height] [background-position-x] [background-position-y] [left|right] [top|bottom]
@@ -72,7 +72,7 @@ Advanced details on each value in the list:
 - **bottom** Positions the corner or side element using absolute positioning. Takes any valid (`bottom`)[https://developer.mozilla.org/en/CSS/bottom] value. There's rarely a need to customize this.
 - **left** Positions the corner or side element using absolute positioning. Takes any valid (`left`)[https://developer.mozilla.org/en/CSS/left] value. There's rarely a need to customize this.
 
-=== Normal Usage
+### Normal Usage
 The following example shows the easiest use-case where each corner and side is a separate image.
 
 ```css
@@ -92,7 +92,7 @@ The following example shows the easiest use-case where each corner and side is a
 }
 ```
 
-=== Advanced Usage
+### Advanced Usage
 This example uses a single sprite and must supply custom height, width and background positioning for each corner and side.
 
 ```css
