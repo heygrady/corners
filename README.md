@@ -70,7 +70,7 @@ This mixing adds all of the provided images as background images to the correspo
 - **top:** Positions the corner or side element using absolute positioning. Takes any valid [`top`](https://developer.mozilla.org/en/CSS/top) value. There's rarely a need to customize this.
 - **right:** Positions the corner or side element using absolute positioning. Takes any valid [`right`](https://developer.mozilla.org/en/CSS/right) value. There's rarely a need to customize this.
 - **bottom:** Positions the corner or side element using absolute positioning. Takes any valid [`bottom`](https://developer.mozilla.org/en/CSS/bottom) value. There's rarely a need to customize this.
-- **left:** Positions the corner or side element using absolute positioning. Takes any valid (`left`)[https://developer.mozilla.org/en/CSS/left] value. There's rarely a need to customize this.
+- **left:** Positions the corner or side element using absolute positioning. Takes any valid [`left`](https://developer.mozilla.org/en/CSS/left) value. There's rarely a need to customize this.
 
 ##### Default values
 
