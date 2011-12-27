@@ -89,7 +89,7 @@ This example uses a single sprite and must supply custom height, width and backg
 ### corner-border-width($border-width, [$padding])
 Because the corner plugin is used to fake borders, it is necessary to remove real borders and fake them using `padding`.
 
-- **$border-width:** Fakes the `border-width` using `padding`. This will override and existing `padding`. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `border-width` spec](https://developer.mozilla.org/en/CSS/border-width). Only pixel values are supported.
+- **$border-width:** Fakes the `border-width` using `padding`. This will override any existing `padding`. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `border-width` spec](https://developer.mozilla.org/en/CSS/border-width). Only pixel values are supported.
 - **$padding:** Provides extra padding in addition to the faked border padding. Used to add back padding that was overridden by the faked border-width. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `padding` spec](https://developer.mozilla.org/en/CSS/padding). Only pixel values are supported.
 
 ### corner-images([$tl], [$t], [$tr], [$r], [$br], [$b], [$bl], [$l])
