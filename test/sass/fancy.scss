@@ -1,0 +1,16 @@
+/* Default Corners CSS*/
+@import "../../ui-corners";
+
+.box {
+  @include corner-images(
+    "corner-fancy-sprite.png" 18px 18px 1px -18px -9px -4px,
+    "corner-fancy-sprite.png" auto 0 0 -4px,
+    "corner-fancy-sprite.png" 20px 18px -16px -18px -2px -4px,
+    "corner-fancy-sprite-sides.png" auto -18px 0 -2px,
+    "corner-fancy-sprite.png" 20px 17px -16px -36px -2px -7px,
+    "corner-fancy-sprite.png" auto 0 -52px -7px,
+    "corner-fancy-sprite.png" 18px 17px 1px -36px -9px -7px,
+    "corner-fancy-sprite-sides.png" auto 0 0 -9px
+  );
+  @include corner-border-width(7px 8px 5px 5px, 4px 3px 6px 6px);
+}
