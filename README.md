@@ -46,43 +46,6 @@ $('.box').corners(); // no options are available
 ## Using the SASS File
 The SASS file contains some useful mixins for adding images as background images. It relies on the [compass library](http://compass-style.org/) for working with the images and will attempt to measure each background image to make configuration easier.
 
-### Mixins
-#### corner-border-width($border-width, [$padding])
-Because the corner plugin is used to fake borders, it is necessary to remove real borders and fake them using `padding`.
-
-- **$border-width** Fakes the border-width using padding. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `padding` spec](https://developer.mozilla.org/en/CSS/padding). Only pixel values are supported.
-- **$padding** Provides extra padding in addition to the faked border padding. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `padding` spec](https://developer.mozilla.org/en/CSS/padding). Only pixel values are supported.
-
-#### corner-images([$tl], [$t], [$tr], [$r], [$br], [$b], [$bl], [$l])
-This mixing adds all of the provided images as background images to the corresponding `span` elements. At a minimum, 8 images should be supplied (one for each corner and side). Each argument can be a list. The arguments are ordered clock-wise starting from the top-left corner. Corners and sides use slightly different arguments for the list. Normally all arguments are calculated automatically except for the `background-image`.
-
-- **corner:** background-image width height background-position-x background-position-y left|right top|bottom
-- **top|bottom:** background-image height background-position-x background-position-y top|bottom left right
-- **left|right:** background-image width background-position-x background-position-y left|right top bottom
-
-##### Advanced details on each value in the list
-
-- **background-image:** The image to use for the background on the element. The image must be a valid `$path` for the [`image-url` function](http://compass-style.org/reference/compass/helpers/urls/#image-url).
-- **width** The width of the element. This is usually measured automatically using the [`image-width` function](http://compass-style.org/reference/compass/helpers/image-dimensions/#image-width).
-- **height:** The height of the element. This is usually measured automatically using the [`image-height` function](http://compass-style.org/reference/compass/helpers/image-dimensions/#image-height).
-- **background-position-x:** Valid value for the first, horizontal value in [`background-position`](https://developer.mozilla.org/en/CSS/background-position). Automatically calculated for each corner and side. For instance, the top-left corner has a `background-position-x` of 0 and the bottom-right corner has a `background-position-x` of 100% by default.
-- **background-position-y:** Valid value for the second, vertical value in [`background-position`](https://developer.mozilla.org/en/CSS/background-position). Automatically calculated for each corner and side. For instance, the top-left corner has a `background-position-y` of 0 and the bottom-right corner has a `background-position-y` of 100% by default.
-- **top:** Positions the corner or side element using absolute positioning. Takes any valid [`top`](https://developer.mozilla.org/en/CSS/top) value. There's rarely a need to customize this.
-- **right:** Positions the corner or side element using absolute positioning. Takes any valid [`right`](https://developer.mozilla.org/en/CSS/right) value. There's rarely a need to customize this.
-- **bottom:** Positions the corner or side element using absolute positioning. Takes any valid [`bottom`](https://developer.mozilla.org/en/CSS/bottom) value. There's rarely a need to customize this.
-- **left:** Positions the corner or side element using absolute positioning. Takes any valid [`left`](https://developer.mozilla.org/en/CSS/left) value. There's rarely a need to customize this.
-
-##### Default values
-
-- **$tl:** *background-image* *image-width* *image-height* left top 0 0
-- **$t:** *background-image* *image-height* left top 0 *top-left-image-width* *top-right-image-width*
-- **$tr:** *background-image* *image-width* *image-height* right top 0 0
-- **$r:** *background-image* *image-width* right top 0 *top-right-image-height* *bottom-right-image-height*
-- **$br:** *background-image* *image-width* *image-height* right bottom 0 0
-- **$b:** *background-image* *image-height* left bottom 0 *bottom-left-image-width* *bottom-right-image-width*
-- **$bl:** *background-image* *image-width* *image-height* left bottom 0 0
-- **$l:** *background-image* *image-width* right bottom 0 *top-left-image-height* *bottom-left-image-height*
-
 ### Normal Usage
 The following example shows the easiest use-case where each corner and side is a separate image.
 
@@ -121,3 +84,40 @@ This example uses a single sprite and must supply custom height, width and backg
   );
   @include corner-border-width(1px, 10px);
 }
+
+### corner-border-width($border-width, [$padding])
+Because the corner plugin is used to fake borders, it is necessary to remove real borders and fake them using `padding`.
+
+- **$border-width** Fakes the border-width using padding. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `padding` spec](https://developer.mozilla.org/en/CSS/padding). Only pixel values are supported.
+- **$padding** Provides extra padding in addition to the faked border padding. Can be a single value or a [list of values](http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#lists) matching the [CSS `padding` spec](https://developer.mozilla.org/en/CSS/padding). Only pixel values are supported.
+
+### corner-images([$tl], [$t], [$tr], [$r], [$br], [$b], [$bl], [$l])
+This mixing adds all of the provided images as background images to the corresponding `span` elements. At a minimum, 8 images should be supplied (one for each corner and side). Each argument can be a list. The arguments are ordered clock-wise starting from the top-left corner. Corners and sides use slightly different arguments for the list. Normally all arguments are calculated automatically except for the `background-image`.
+
+- **$tl|$tr|$br|$bl:** background-image [width] [height] [background-position-x] [background-position-y] [left|right] [top|bottom]
+- **$t|$b:** background-image [height] [background-position-x] [background-position-y] [top|bottom] [left] [right]
+- **$l|$r:** background-image [width] ]background-position-x] [background-position-y] [left|right] [top] [bottom]
+
+#### Values in the list
+
+- **background-image:** The image to use for the background on the element. The image must be a valid `$path` for the [`image-url` function](http://compass-style.org/reference/compass/helpers/urls/#image-url).
+- **width** The width of the element. This is usually measured automatically using the [`image-width` function](http://compass-style.org/reference/compass/helpers/image-dimensions/#image-width).
+- **height:** The height of the element. This is usually measured automatically using the [`image-height` function](http://compass-style.org/reference/compass/helpers/image-dimensions/#image-height).
+- **background-position-x:** Valid value for the first, horizontal value in [`background-position`](https://developer.mozilla.org/en/CSS/background-position). Automatically calculated for each corner and side. For instance, the top-left corner has a `background-position-x` of 0 and the bottom-right corner has a `background-position-x` of 100% by default.
+- **background-position-y:** Valid value for the second, vertical value in [`background-position`](https://developer.mozilla.org/en/CSS/background-position). Automatically calculated for each corner and side. For instance, the top-left corner has a `background-position-y` of 0 and the bottom-right corner has a `background-position-y` of 100% by default.
+- **top:** Positions the corner or side element using absolute positioning. Takes any valid [`top`](https://developer.mozilla.org/en/CSS/top) value. There's rarely a need to customize this.
+- **right:** Positions the corner or side element using absolute positioning. Takes any valid [`right`](https://developer.mozilla.org/en/CSS/right) value. There's rarely a need to customize this.
+- **bottom:** Positions the corner or side element using absolute positioning. Takes any valid [`bottom`](https://developer.mozilla.org/en/CSS/bottom) value. There's rarely a need to customize this.
+- **left:** Positions the corner or side element using absolute positioning. Takes any valid [`left`](https://developer.mozilla.org/en/CSS/left) value. There's rarely a need to customize this.
+
+#### Default values
+
+- **$tl:** *background-image* *image-width* *image-height* left top 0 0
+- **$t:** *background-image* *image-height* left top 0 *top-left-image-width* *top-right-image-width*
+- **$tr:** *background-image* *image-width* *image-height* right top 0 0
+- **$r:** *background-image* *image-width* right top 0 *top-right-image-height* *bottom-right-image-height*
+- **$br:** *background-image* *image-width* *image-height* right bottom 0 0
+- **$b:** *background-image* *image-height* left bottom 0 *bottom-left-image-width* *bottom-right-image-width*
+- **$bl:** *background-image* *image-width* *image-height* left bottom 0 0
+- **$l:** *background-image* *image-width* right bottom 0 *top-left-image-height* *bottom-left-image-height*
+
