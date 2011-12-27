@@ -84,6 +84,7 @@ This example uses a single sprite and must supply custom height, width and backg
   );
   @include corner-border-width(1px, 10px);
 }
+```
 
 ### corner-border-width($border-width, [$padding])
 Because the corner plugin is used to fake borders, it is necessary to remove real borders and fake them using `padding`.
@@ -120,4 +121,3 @@ This mixing adds all of the provided images as background images to the correspo
 - **$b:** *background-image* *image-height* left bottom 0 *bottom-left-image-width* *bottom-right-image-width*
 - **$bl:** *background-image* *image-width* *image-height* left bottom 0 0
 - **$l:** *background-image* *image-width* right bottom 0 *top-left-image-height* *bottom-left-image-height*
-
