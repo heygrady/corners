@@ -120,4 +120,4 @@ This mixing adds all of the provided images as background images to the correspo
 - **$br:** *background-image* *image-width* *image-height* right bottom 0 0
 - **$b:** *background-image* *image-height* left bottom 0 *bottom-left-image-width* *bottom-right-image-width*
 - **$bl:** *background-image* *image-width* *image-height* left bottom 0 0
-- **$l:** *background-image* *image-width* right bottom 0 *top-left-image-height* *bottom-left-image-height*
+- **$l:** *background-image* *image-width* left top 0 *top-left-image-height* *bottom-left-image-height*
